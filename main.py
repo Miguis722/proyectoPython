@@ -25,7 +25,11 @@ if (__name__ == '__main__'):
         # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Small%20Keyboard&t=Menu%20Principal
 
         print("""
-                                MENÚ PRINCIPAL
+                               
+                        +-+-+-+-+ +-+-+-+-+-+-+-+-+-+
+                        |M|e|n|u| |P|r|i|n|c|i|p|a|l|
+                        +-+-+-+-+ +-+-+-+-+-+-+-+-+-+
+
 
                     SISTEMA G&C DE INVENTARIO CAMPUSLANDS
               
