@@ -1,5 +1,13 @@
 import os
 import re
+import requests
+
+#Servidor de Personal
+def getAllDataPersonal():
+	peticion = requests.get("http://")
+	data= peticion.json()
+	return data
+
 def menu():
     while True:
         os.system("cls")
