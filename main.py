@@ -43,3 +43,17 @@ if (__name__ == '__main__'):
             #número distinto a los posibles, volvera a sacar el mismo menú.
             opcion = int(opcion)  # Lo convertimos a un número entero
             #Empezamos a meter los condicionales para el menú.
+        if (opcion == 1):
+            Activos.menu()
+        elif (opcion == 2):
+            Personal.menu()
+        elif (opcion == 3):
+            Zonas.menu()
+        elif (opcion == 4):
+            Asignacion.menu()
+        elif(opcion == 5):
+            Reportes.menu()
+        elif(opcion == 6):
+            Movimientos.menu()
+        elif(opcion == 7):
+            exit()
