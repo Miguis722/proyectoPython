@@ -37,12 +37,12 @@ def menu():
             #Empezamos a meter los condicionales para el menú.
         if (opcion == 1):
             #Agregar
-        elif (opcion == 2):
+        #elif (opcion == 2):
             #Editar
-        elif (opcion == 3):
+        #elif (opcion == 3):
             #Eliminar
-        elif (opcion == 4):
+        #elif (opcion == 4):
             #Buscar
-        elif(opcion == 5):
+        #elif(opcion == 5):
             break
         #Volver al menú principal
