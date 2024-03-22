@@ -13,3 +13,4 @@
 12. Hacemos testeos comprobando que las funciones, hagan su respectiva acción. Empezamos el menú de get Asignación.
 13. Actualización del README o tambien llamada documentación.
 14. Actualizamos getReportes con nuevos menús, además de que le asignamos su respectivo servidor para conseguir toda la Data necesaria.
+15. Actualizamos el menú de getMovimiento, le damos condicionales de menú y le asignamos su servidor.
