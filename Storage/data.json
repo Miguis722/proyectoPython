@@ -1,0 +1,172 @@
+{
+    "activos": [
+      {
+        "id": "1",
+        "CodTransaccion": "327",
+        "NroFormulario": "5614594",
+        "CodCampus": "CPU001",
+        "idMarca": "1",
+        "idCategoria": "1",
+        "idTipo": "1",
+        "Nombre": "Mesa",
+        "ValorUnitario": "10000",
+        "Proveedor": "COMPUMAX",
+        "NroSerial": "231654984",
+        "idEmpresaResponsable": "1",
+        "idEstado": "1",
+        "historialActivos": [
+            {
+              "id": "1",
+              "Fecha": "2024-03-21",
+              "tipoMov": "1",
+              "idRespMov": "1"
+            }
+          ]
+      }
+    ],
+    "marcas": [
+      {
+        "id": "1",
+        "Nombre": "lg"
+      },
+      {
+        "id": "2",
+        "Nombre": "compumax"
+      },
+      {
+        "id": "3",
+        "Nombre": "logitech"
+      },
+      {
+        "id": "4",
+        "Nombre": "benq"
+      },
+      {
+        "id": "5",
+        "Nombre": "asus"
+      },
+      {
+        "id": "6",
+        "Nombre": "lenovo"
+      },
+      {
+        "id": "7",
+        "Nombre": "hp"
+      }
+    ],
+    "categoriaActivos": [
+      {
+        "id": "1",
+        "Nombre": "equipo de computo"
+      },
+      {
+        "id": "2",
+        "Nombre": "electrodomestico"
+      },
+      {
+        "id": "3",
+        "Nombre": "juego"
+      }
+    ],
+    "tipoMovActivos": [
+      {
+        "id": "1",
+        "Nombre": "Asignacion"
+      },
+      {
+        "id": "2",
+        "Nombre": "Dado de Baja"
+      },
+      {
+        "id": "3",
+        "Nombre": "En garantía"
+      },
+      {
+        "id": "4",
+        "Nombre": "ReAsignado"
+      }
+    ],
+    "estados": [
+        {
+          "id": "0",
+          "Nombre": "no asignado"
+        },
+        {
+          "id": "1",
+          "Nombre": "asignado"
+        },
+        {
+          "id": "2",
+          "Nombre": "dado de baja por daño"
+        },
+        {
+          "id": "3",
+          "Nombre": "en reparación y/o garantia"
+        }
+      ],
+    "tipoActivos": [
+      {
+        "id": "1",
+        "Nombre": "monitor"
+      },
+      {
+        "id": "2",
+        "Nombre": "cpu"
+      },
+      {
+        "id": "3",
+        "Nombre": "teclado"
+      },
+      {
+        "id": "4",
+        "Nombre": "mouse"
+      },
+      {
+        "id": "5",
+        "Nombre": "aire acondicionado"
+      },
+      {
+        "id": "6",
+        "Nombre": "portatil"
+      },
+      {
+        "id": "7",
+        "Nombre": "impresora"
+      }
+    ],
+    "personas": [
+        {
+          "id": "1",
+          "nroId (CC, Nit)":"1003697854",
+          "Nombre": "CAMPUSLAND",
+          "Email": "test@gmail.com",
+          "Telefonos": [
+            {
+                "movil":{
+                    "id": "1",
+                    "num": "3002014587"
+                },
+                "casa":{
+                    "id": "1",
+                    "num": "3002014587"
+                }
+            }]
+        }
+    ],
+    "zonas":[
+        {
+            "id":1,
+            "nombreZona": "sputnik",
+            "totalCapacidad": 35
+        }
+    ],
+    "asignaciones": [
+      {
+        "id": "1",
+        "Fecha": "2024-03-21",
+        "tipoAsignacion": "Personal",
+        "asignadoA": 1,
+        "idActivos": 1
+      }
+    ]  
+}
