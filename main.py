@@ -66,3 +66,7 @@ if (__name__ == '__main__'):
             Movimientos.menu()
         elif(opcion == 7):
             exit()
+
+#Ponemos las condiciones de que solo puede seleccionar del número de entre 1 y 7, si no escoge  uno de estos, volvera a aparecer el mismo
+            #Menú, hasta que escoja un número valido.
+    
