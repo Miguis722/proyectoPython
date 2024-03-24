@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+from tabulate import tabulate
 
 #Servidor de Reportes
 def getAllDataReportes():
@@ -8,6 +9,9 @@ def getAllDataReportes():
 	data= peticion.json()
 	return data
 
+
+         
+     
 def menu():
     while True:
         os.system("cls")
@@ -37,6 +41,7 @@ def menu():
             opcion = int(opcion)  # Lo convertimos a un número entero
             #Empezamos a meter los condicionales para el menú.
         if (opcion == 1):
+            print(tabulate(getAllDataReportes(),headers="keys", tablefmt="rounded_grid"))
             #LISTAR TODOS LOS ACTIVOS
         #elif (opcion == 2):
             #LISTAR ACTIVOS POR CATEGORIA
