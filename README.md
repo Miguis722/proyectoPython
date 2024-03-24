@@ -14,3 +14,6 @@
 13. Actualización del README o tambien llamada documentación.
 14. Actualizamos getReportes con nuevos menús, además de que le asignamos su respectivo servidor para conseguir toda la Data necesaria.
 15. Actualizamos el menú de getMovimiento, le damos condicionales de menú y le asignamos su servidor.
+16. Utilizamos el servidor donde se encuentra toda la información.
+17. Creamos un filtro en Reportes para poder visualizar todo el Data disponible.
+18. Añademos explicación del por que se está nombrando cierta funcion dentro del codigo. Además de que agregamos el primer filtro. Ya funciona el menú de getReportes (el número 5, 1), falta solucionar problemas. Añadiremos tambien documentación y explicación en menú.
