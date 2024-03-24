@@ -14,50 +14,31 @@ def getAllDataReportes():
 #Hacemos el primer filtro que se nos pide, el cual es el de listar todos los activos. Le ponemos un diseño en especial para que aparezca de forma bonita, clara
 #Y legible, facil de entender.
 def getAllDataReportesOrganizado():
-
     DataReportesOrganized = list()
-
     for val in getAllDataReportes():
           #Recordar que si dejamos los nombres como están se pueden mezclar con otros reportes y generarn errores.
           #Además que los nombres de las variables DEBEN tener un "_" porque sino no funcionaran.
-          externocleidomastoideo = dict({
-            #Recordemos cambiar el nombre con el que se mostrara al usuario, para que asi el usuario no sepa el
-            #Orden y nombre de como tenemos organizado la base de datos.
-
-            "Numero de identiciación": val.get('NroItem'),
-
-            "Codigo de Transacción": val.get('CodTransaccion'),
-
+        externocleidomastoideo = dict({
+            "Identificacion": val.get('NroItem'),
+            "CodigoTransacción": val.get('CodTransaccion'),
             "Serial": val.get('NroSerial'),
-
-            "Codigo en Campus": val.get('CodCampus'),
-
+            "CodigoCampus": val.get('CodCampus'),
             "Formulario": val.get('NroFormulario'),
-
-            "Identificación": val.get('Nombre'),
-
+            "Nombre": val.get('Nombre'),
             "Proveedor": val.get('Proveedor'),
-
             "Responsable": val.get('EmpresaResponsable'),
-
-            "Número id de la marca": val.get('idMarca'),
-
-            "Número id de la categoria": val.get('idCategoria'),
-                
-            "Número id del tipo": val.get('idTipo'),
-
+            "Id de la marca": val.get('idMarca'),
+            "Id de la categoria": val.get('idCategoria'),
+            "Id del tipo": val.get('idTipo'),
             "Precio": val.get('ValorUnitario'),
-
             "Estado": val.get('idEstado'),
-
             "Identificador": val.get('id'),
-
             "Asignación": val.get('asignaciones')
-
-            })
-          DataReportesOrganized.append(externocleidomastoideo)
-          return DataReportesOrganized
-
+        })        
+        DataReportesOrganized.append(externocleidomastoideo)
+    return DataReportesOrganized
+#Recordemos cambiar el nombre con el que se mostrara al usuario, para que asi el usuario no sepa el
+#Orden y nombre de como tenemos organizado la base de datos.
 
 
 def menu():
@@ -95,7 +76,7 @@ def menu():
 
         #Si la opción del usuario es 1, entonces mostrara una lista con todos los activos
         if (opcion == 1):
-            print(tabulate(getAllDataReportesOrganizado(), headers = "keys", tablefmt = "rounded_grid"))
+            print(tabulate(getAllDataReportesOrganizado(),headers="keys", tablefmt = "rounded_grid"))
             input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         #LISTAR TODOS LOS ACTIVOS
 
