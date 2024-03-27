@@ -4,6 +4,15 @@ import requests
 from tabulate import tabulate
 import json
 
+#Servidor de Categorias
+def getAllDataCategorias():
+    peticion = requests.get("http://154.38.171.54:5502/categoriaActivos")
+    data = peticion.json()
+    return data
+
+#codigo1 = "Equipo de Computo"
+#codigo2 = "Electrodomestico"
+#codigo3 = "Juego"
 
 #Servidor de Reportes
 def getAllDataReportes():
@@ -40,11 +49,43 @@ def getAllDataReportesOrganizado():
 #Recordemos cambiar el nombre con el que se mostrara al usuario, para que asi el usuario no sepa el
 #Orden y nombre de como tenemos organizado la base de datos.
 
+#Queremos filtrar los diferentes ACTIVOS por las diferentes CATEGORIAS disponibles (1, 2 y 3).
+#¿Que categoria hay disponibles por el momento? 
+                #1. Equipo de Computo
+                #2. Electrodomesticos
+                #3. Juego
+def getAllActivosXCategoria(idCategoria):
+    CategoriasDisponibles = []
+    for val in getAllDataReportes():
+        if idCategoria == val.get('idCategoria'):
+            #Si escoge una opcion que se encuentra dentro de los parametros, entonces se mostrara, sino, no.
+                    CategoriasDisponibles.append({
+                        "Identificacion": val.get('NroItem'),
+                        "Item N°" : val.get("NroItem"),  
+                        "Codigo de Transacción": val.get('CodTransaccion'),
+                        "Número de serie": val.get("NroSerial"),
+                        "Codigo en Campus": val.get("CodCampus"),
+                        "Formulario": val.get('NroFormulario'),
+                        "Nombre": val.get('Nombre'),
+                        "Proveedor": val.get('Proveedor'),
+                        "Responsable": val.get('EmpresaResponsable'),
+                        "Id de la marca": val.get('idMarca'),
+                        "Id del tipo": val.get('idTipo'),
+                        "Precio": val.get('ValorUnitario'),
+                        "Estado": val.get('idEstado'),
+                        "Identificador": val.get('id')
+                        #"Asignación": val.get('asignaciones'), 
+                                       
+                    })
+
+    return CategoriasDisponibles
+                  
+     
 
 def menu():
     while True:
         #CLS se usa en vez del CLEAR, debido a que uso Windows y no Linux.
-        os.system("cls")
+        os.system("cls") or ("clear")
         print("""
 
                 +-+-+-+-+ +-+ +-+-+-+-+-+-+-+-+
@@ -80,16 +121,32 @@ def menu():
             input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         #LISTAR TODOS LOS ACTIVOS
 
-        #elif (opcion == 2):
+
+        elif (opcion == 2):
+            print("""  ¿Que categoria deseas visualizar? 
+                  
+                            1. Equipo de Computo
+                            2. Electrodomesticos
+                            3. Juego""")
+            
+            idCategoria = input("\nCategoria Deseada: ")
+            if re.match(r'^[1-3]$', idCategoria) is not None:
+                idCategoria = (idCategoria) 
+            
+            print(tabulate(getAllActivosXCategoria(idCategoria),headers="keys", tablefmt = "rounded_grid"))
+            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #LISTAR ACTIVOS POR CATEGORIA
 
         #elif (opcion == 3):
+            #input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #LISTAR ACTIVOS DADOS POR BAJA POR DAÑO
 
         #elif (opcion == 4):
+            #input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #LISTAR ACTIVOS Y ASIGNACION
 
         #elif (opcion == 5):
+            #input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #LISTAR HISTORIAL DE MOV. DE ACTIVO
 
         elif (opcion == 6):
