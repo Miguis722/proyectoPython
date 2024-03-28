@@ -7,7 +7,7 @@ import json
 import requests
 #Empezamos importando las primeras funciones que necesitaremos en un futuro
 #Empezaremos haciendo un menú de bienvenida a los usuarios y más adelante podremos importar el resto de procesos.
-import Modules.getActivos as Activos
+import Modules.Activos.getActivos as Activos
 import Modules.getAsignacion as Asignacion
 import Modules.getMovimiento as Movimientos
 import Modules.getPersonal as Personal

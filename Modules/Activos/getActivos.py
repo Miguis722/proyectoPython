@@ -1,10 +1,14 @@
 import os
 import re
 import requests
+import crudActivos as CRDActivos #Crud activos se encargara de la funcionalidad de EDITAR los activos de la base de datos.
+import delActivos as DELETEActivos #Se encargara de la funcionalidad de ELIMINAR un activo de la base de datos.
+import PostActivos as PostActivos #Se encargara de la funcionalidad de AGREGAR  un nuevo Activo a la base de datos.
+
 
 #Servidor de Activos
 def getAllDataActivos():
-	peticion = requests.get("http://")
+	peticion = requests.get("http://154.38.171.54:5502/activos")
 	data= peticion.json()
 	return data
 
@@ -37,13 +41,15 @@ def menu():
             opcion = int(opcion)  # Lo convertimos a un número entero
             #Empezamos a meter los condicionales para el menú.
         if (opcion == 1):
+             print("Hola Mundo")
             #Agregar
-        #elif (opcion == 2):
+        elif (opcion == 2):
+            CRDActivos.menu()
             #Editar
         #elif (opcion == 3):
             #Eliminar
         #lif (opcion == 4):
             #Buscar
-        #elif(opcion == 5):
+        elif(opcion == 5):
             break
         #Volver al menú principal
