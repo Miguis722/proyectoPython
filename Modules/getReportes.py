@@ -80,7 +80,56 @@ def getAllActivosXCategoria(idCategoria):
 
     return CategoriasDisponibles
                   
-     
+#Queremos filtrar los diferentes ACTIVOS que se han dado de BAJA POR DAÑO.
+#Estados:
+        # 0. No asignado.
+        # 1. Asignado.
+        # 2. Dado de baja por daño.
+        # 3. En reparación y/o garantia.
+def getAllActivosDadosDeBajaPorDaño():
+    ActivosDañados = []
+    for val in getAllDataReportes():
+          if val.get( 'idEstado' ) == "2": 
+
+            ActivosDañados.append({ 
+                        "Identificacion": val.get('NroItem'),
+                        "Item N°" : val.get("NroItem"),  
+                        "Codigo de Transacción": val.get('CodTransaccion'),
+                        "Número de serie": val.get("NroSerial"),
+                        "Codigo en Campus": val.get("CodCampus"),
+                        "Formulario": val.get('NroFormulario'),
+                        "Nombre": val.get('Nombre'),
+                        "Proveedor": val.get('Proveedor'),
+                        "Responsable": val.get('EmpresaResponsable'),
+                        "Id de la marca": val.get('idMarca'),
+                        "Id del tipo": val.get('idTipo'),
+                        "Precio": val.get('ValorUnitario'),
+                        "Identificador": val.get('id')
+            })
+    return  ActivosDañados
+
+#Queremos filtrar los diferentes ACTIVOS que se encuentren ASIGNADOS
+def getAllActivosAsignados():
+    ActivosAsignados = []
+    for val in getAllDataReportes():
+        if val.get('idEstado') == "1":
+               ActivosAsignados.append({ 
+                        "Identificacion": val.get('NroItem'),
+                        "Item N°" : val.get("NroItem"),  
+                        "Codigo de Transacción": val.get('CodTransaccion'),
+                        "Número de serie": val.get("NroSerial"),
+                        "Codigo en Campus": val.get("CodCampus"),
+                        "Formulario": val.get('NroFormulario'),
+                        "Nombre": val.get('Nombre'),
+                        "Proveedor": val.get('Proveedor'),
+                        "Responsable": val.get('EmpresaResponsable'),
+                        "Id de la marca": val.get('idMarca'),
+                        "Id del tipo": val.get('idTipo'),
+                        "Precio": val.get('ValorUnitario'),
+                        #"Asignado a": val.get('asignaciones')
+                })
+    return ActivosAsignados
+
 
 def menu():
     while True:
@@ -137,12 +186,14 @@ def menu():
             input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #LISTAR ACTIVOS POR CATEGORIA
 
-        #elif (opcion == 3):
-            #input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+        elif (opcion == 3):
+            print(tabulate(getAllActivosDadosDeBajaPorDaño(),headers="keys", tablefmt = "rounded_grid"))
+            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #LISTAR ACTIVOS DADOS POR BAJA POR DAÑO
 
-        #elif (opcion == 4):
-            #input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+        elif (opcion == 4):
+            print(tabulate(getAllActivosAsignados(),headers="keys", tablefmt = "rounded_grid"))
+            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #LISTAR ACTIVOS Y ASIGNACION
 
         #elif (opcion == 5):
