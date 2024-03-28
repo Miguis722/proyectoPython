@@ -128,20 +128,31 @@ def updateActivos(id):
                                         raise Exception("El Nombre del activo no cumple con el patrón establecido.")   
                                 except Exception as error:
                                     print(error)
-                        
+                                        
 
 
 
 
 
+#Ya van 4, faltan 6 más.             
+                                               
+                    #Si el usuario escoge el número cinco (5), modificara al Proveedor.
+                    elif(opcion == 5):
+                         while True:
+                            try:
+                                Proveedor = input("Ingrese el Nombre del Proovedor del activo: ")
 
+                                #
+                                #
+                                #
 
-
-#Ya van 4, faltan 6 más.
-
-
-
-
+                                if (r'^[a-zA-Z]$', Proveedor) is not None:
+                                        data["Proveedor"] = Proveedor
+                                        break
+                                else:
+                                        raise Exception("El Nombre del activo no cumple con el patrón establecido.")   
+                            except Exception as error:
+                                print(error)
 
                     #Es en cuyo caso se desee EDITAR más de un dato (por ejemplo, que ya editamos un dato y queramos cambiar otro sin tener que buscar TODO de vuelta.)
                     confirmacion = ""            
