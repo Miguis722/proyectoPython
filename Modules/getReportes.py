@@ -125,10 +125,26 @@ def getAllActivosAsignados():
                         "Responsable": val.get('EmpresaResponsable'),
                         "Id de la marca": val.get('idMarca'),
                         "Id del tipo": val.get('idTipo'),
-                        "Precio": val.get('ValorUnitario'),
-                        #"Asignado a": val.get('asignaciones')
+                        "Asignado a": val.get('asignaciones')
                 })
     return ActivosAsignados
+
+#Queremos hacer un filtro el cual se nos muestre TODOS los movimientos que ha tenido un activo.
+def getAllTrayectoriaDeActivos():
+    Trayectoria = []
+    for val in  getAllDataReportes():
+        Trayectoria.append({
+            "Identificacion": val.get('NroItem'),
+            "Item N°" : val.get("NroItem"),  
+            "Número de serie": val.get("NroSerial"),
+            "Nombre": val.get('Nombre'),
+            "Proveedor": val.get('Proveedor'),
+            "Responsable": val.get('EmpresaResponsable'),
+            "Id de la marca": val.get('idMarca'),
+            "Id del tipo": val.get('idTipo'),
+            "Historial": val.get('historialActivos')
+        })
+    return Trayectoria
 
 
 def menu():
@@ -170,7 +186,7 @@ def menu():
             input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         #LISTAR TODOS LOS ACTIVOS
 
-
+        #Si la opción del usuario es 2, entonces mostrara una lista  con los activos por categoría.
         elif (opcion == 2):
             print("""  ¿Que categoria deseas visualizar? 
                   
@@ -184,22 +200,27 @@ def menu():
             
             print(tabulate(getAllActivosXCategoria(idCategoria),headers="keys", tablefmt = "rounded_grid"))
             input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-            #LISTAR ACTIVOS POR CATEGORIA
-
+        #LISTAR ACTIVOS POR CATEGORIA
+            
+        #Si la opción del usuario es 3, entonces mostrara una lista con los activos que han sido de baja por daño.
         elif (opcion == 3):
             print(tabulate(getAllActivosDadosDeBajaPorDaño(),headers="keys", tablefmt = "rounded_grid"))
             input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-            #LISTAR ACTIVOS DADOS POR BAJA POR DAÑO
-
+        #LISTAR ACTIVOS DADOS POR BAJA POR DAÑO
+            
+        #Si la opción del usuario es 4, entonces mostrara una lista con todos los activos que se encuentren asignados.
         elif (opcion == 4):
             print(tabulate(getAllActivosAsignados(),headers="keys", tablefmt = "rounded_grid"))
             input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-            #LISTAR ACTIVOS Y ASIGNACION
-
-        #elif (opcion == 5):
-            #input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-            #LISTAR HISTORIAL DE MOV. DE ACTIVO
-
+        #LISTAR ACTIVOS Y ASIGNACION
+        
+        #Si la opción del usuario es 5, entonces mostrara una lista con todos el historial que ha tenido un activo.
+        elif (opcion == 5):
+            print(tabulate(getAllTrayectoriaDeActivos(),headers="keys", tablefmt = "rounded_grid"))
+            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+        #LISTAR HISTORIAL DE MOV. DE ACTIVO
+            
+        #Si se escoge 6, entonces volvera al menú principal.
         elif (opcion == 6):
             break
         #Volver al menú principal
