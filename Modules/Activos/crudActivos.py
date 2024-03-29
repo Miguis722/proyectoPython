@@ -29,7 +29,45 @@ def MarcasExistentes():
 def NumeroDeMarcaExistenteXMarca(nombre_marca):
     marcas = MarcasExistentes()
     return marcas.get(nombre_marca, "Marca no encontrada")
+# Buscamos dentro del diccionario de MarcasExistentes la marca suministrada por el usuario, y si está marca no se encuentra dentro de las que ya estan, botara el mensaje de "Marca no encontrada".
 
+
+#Ahora, haremos lo mismo, pero con las categorias disponibles, y despues haremos con los diferentes estados disponibles.
+
+def CategoriasExistentes():
+    peticion = requests.get("http://154.38.171.54:5502/categoriaActivos")
+    data = peticion.json()
+
+    #Ahora creamos un diccionario en el cual se guardaran las categorias con sus respectivos id's.
+    categorias = {}
+    for categoria in data:
+         categorias[categoria["Nombre"]] = categoria['id']
+    return categorias
+
+# Ahora, hacemos el segudo paso pero con categorias, si la  categoría existe nos devuelve el ID.
+# Si no existe la categoría, nos dira  que la categoría no está existente ?) .
+
+def NumeroDeCategoriaExistenteXCategoria(nombre_categoria):
+    categorias = CategoriasExistentes()
+    return categorias.get(nombre_categoria, "Categoria no encontrada.")
+
+
+
+#Ahora, lo hacemos con los distintos estados.
+def EstadosExistentes():
+    peticion = requests.get("http://154.38.171.54:5502/estados")
+    data = peticion.json()
+
+     #Creamos el diccionario donde se guardan los estados con sus respectivos ID's.
+    Estados = {}
+    for estado in data:
+          Estados[estado["Nombre"]]=estado['id']
+    return Estados
+
+
+def  NumeroDeEstadoExistenteXEstado(nombre_estado):
+     Estados= EstadosExistentes()
+     return Estados.get(nombre_estado, "Estado no encontrado.")
 
 
 #Deseamos editar un dato de los ya existentes en la base de datos.
@@ -167,48 +205,122 @@ def updateActivos(id):
                             except Exception as error:
                                 print(error)
 
-                #Si el usuario escoge el número seis (6), modificara a la empresa Responsable
-                elif(opcion == 6):
-                    while True:
-                        try:
-                              NombreEmpresaResponsable = input("Ingrese el Nombre de la empresa Responsable: ")
+                    #Si el usuario escoge el número seis (6), modificara a la empresa Responsable
+                    elif(opcion == 6):
+                        while True:
+                            try:
+                                NombreEmpresaResponsable = input("Ingrese el Nombre de la empresa Responsable: ")
 
-                              if (r'^[a-zA-Z]+$', NombreEmpresaResponsable) is not None:
-                                        data["EmpresaResponsable"] = NombreEmpresaResponsable
-                                        break
-                              else:
-                                   raise Exception("El Nombre de la Empresa Responsable no cumple con el patrón establecido.")
-                        except Exception as error:
-                            print(error)
+                                if (r'^[a-zA-Z]+$', NombreEmpresaResponsable) is not None:
+                                            data["EmpresaResponsable"] = NombreEmpresaResponsable
+                                            break
+                                else:
+                                    raise Exception("El Nombre de la Empresa Responsable no cumple con el patrón establecido.")
+                            except Exception as error:
+                                print(error)
 #Ya van 6, faltan 4 más. 
 
-                #Si el usuario escoge el número siete (7), modificara la marca.
+                    #Si el usuario escoge el número siete (7), modificara la marca.
+                    elif (opcion == 7):
+                        while True:
+                            try:
+                                print("Las marcas disponibles son: ")
+                                marcas = MarcasExistentes()
+                                for marca, marca_id in marcas.items():
+                                    print(f"{marca_id}. {marca}")
 
-                # elif opcion == 7:
-                #     while True:
-                #          try:
-                #               Marca = input("Ingrese el Nombre de la marca.")
-                #                 if (r'^[a-zA-Z]+$', Marca) is not None:
-                #                         data["EmpresaResponsable"] = Marca
-                #                         break
-                #               else:
-                #                    raise Exception("El Nombre de la Empresa Responsable no cumple con el patrón establecido.")
-                #         except Exception as error:
-                #             print(error)
+                                marca_id = input("Ingrese el ID de la marca: ")
+                                if marca_id.isdigit() and int(marca_id) in marcas.values():
+                                    # Obtenemos el nombre de la marca usando el ID proporcionado
+                                    for marca, m_id in marcas.items():
+                                        if int(marca_id) == m_id:
+                                            data["Marca"] = marca
+                                            print(f"Marca actualizada a: {marca}")
+                                            break
+                                else:
+                                    raise Exception("ID de marca no válido")
+                            except Exception as error:
+                                print(error)
 
+# isdigit
+# es un método de cadena en Python que se utiliza para verificar si todos los caracteres de una cadena son dígitos (0 al 9). Retorna True si la cadena contiene solo dígitos y False en caso contrario.
+                                
+
+#Desarrollamos el filtro 7, por consiguiente faltan 3 más
+                    
+                    #Si el usuario escoge el número ocho (8), modificara la categoria.
+                    elif (opcion == 8):
+                         while True:
+                            try:
+                                   print("Las categorias disponibles son: ")
+                                   categorias =  CategoriasExistentes()
+                                   for categoria,categoria_id in categorias.items():
+                                        print(f"{categoria_id}. {categoria}")
+                              
+                                   categoria_id=input("Ingrese el ID de la categoría: ")
+                                   if categoria_id in categorias:
+                                       data['Categoria']=categorias[categoria_id]
+                                       print(f"La categoría ha sido cambiada a: {data['Categoria']}")
+                                       break
+                                   else:
+                                       raise Exception("ID de Categoria no valido")
+                            except Exception as error:
+                                   print(error)
+
+#Desarrollamos el filtro 8, por consiguiente solo nos faltarian 2 más.
+                    
+                    #Si el usuario escoge el número nueve(9), modificara el precio de la unidad.
+                    elif (opcion == 9):
+                        while True:
+                            try:
+
+                                Precio = input("Ingrese el Valor del Precio unitario del activo, sin agregar signos o puntos: ")
+
+                                #'^[0-9]$' Esto nos estaria permitiendo nada más poder ingresar numeros, sin una cantidad especifica.
+                                # Si agregamos una + antes del $, significa que podremos agregar más de un caracter.                                                            
+                                if (r'^[0-9]+$', Precio) is not None:
+                                        data["ValorUnitario"] = Precio
+                                        break
+                                else:
+                                        raise Exception("El precio unitario no cumple con el patrón establecido.")   
+                            except Exception as error:
+                                print(error)
+#Desarrollamos el filtro 9, falta no más 1.
+                        
+                    #Si el usuario escoge el número diez(10), modificara el Estado del equipo.
+                    elif (opcion == 10):
+                         while True:
+                            try:
+                                   print("Los Estados disponibles son: ")
+                                   Estados =  EstadosExistentes()
+                                   for estado,estado_id in Estados.items():
+                                        print(f"{estado_id}. {estado}")
+                              
+                                   estado_id=input("Ingrese el ID de la categoría: ")
+                                   if estado_id in Estados:
+                                       data['Estado']=Estados[estado_id]
+                                       print(f"El Estado ha sido cambiado a: {data['Estado']}")
+                                       break
+                                   else:
+                                       raise Exception("ID de Estado no valido")
+                            except Exception as error:
+                                   print(error)
+                         
+#Finalizamos los filtros                            
+                            
                     #Es en cuyo caso se desee EDITAR más de un dato (por ejemplo, que ya editamos un dato y queramos cambiar otro sin tener que buscar TODO de vuelta.)
                     confirmacion = ""            
                     while (confirmacion !=  "s" and confirmacion != "n"):
-                            confirmacion = input("Deseas cambiar más datos?(s/n): ")
-                            if re.match(r'^[sn]$',confirmacion):
-                                if confirmacion == "n":
-                                    continuarActualizar = False
-                                    break
+                                confirmacion = input("Deseas cambiar más datos?(s/n): ")
+                                if re.match(r'^[sn]$',confirmacion):
+                                    if confirmacion == "n":
+                                        continuarActualizar = False
+                                        break
+                                    else:
+                                        confirmacion == "s"
+                                        break
                                 else:
-                                    confirmacion == "s"
-                                    break
-                            else:
-                                print("La confirmación no cumple con lo establecido. Por favor, solo utilice: s / n")
+                                    print("La confirmación no cumple con lo establecido. Por favor, solo utilice: s / n")
             except Exception as error:
                 print(error)
         
