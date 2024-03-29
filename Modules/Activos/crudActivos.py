@@ -3,12 +3,34 @@ import os
 import re
 import requests
 import json
-
+import getActivos as GetActivos
 #Servidor de Activos
 def getAllDataActivos():
 	peticion = requests.get("http://154.38.171.54:5502/activos")
 	data= peticion.json()
 	return data
+
+#Para hacernos la vida más facil, y no mostrar un número en vez de la marca
+# haré una función que se encargue de mostrar en vez de los números.
+# El primer paso será traer todas las marcas.
+
+def MarcasExistentes():
+    peticion = requests.get("http://154.38.171.54:5502/marcas")
+    data = peticion.json()
+
+    #Aqui estamos creando un diccionalio en el cual se guardaran las marcas con sus respectivos id's.
+    marcas = {}
+    for marca in data:
+        marcas[marca['Nombre']] = marca['id']
+    return marcas
+
+# El segundo paso será que si existe esa marca, buscara el ID.
+#Esta función busca el número de identificación (ID) de una marca dado su nombre.
+def NumeroDeMarcaExistenteXMarca(nombre_marca):
+    marcas = MarcasExistentes()
+    return marcas.get(nombre_marca, "Marca no encontrada")
+
+
 
 #Deseamos editar un dato de los ya existentes en la base de datos.
 def updateActivos(id):
@@ -128,31 +150,51 @@ def updateActivos(id):
                                         raise Exception("El Nombre del activo no cumple con el patrón establecido.")   
                                 except Exception as error:
                                     print(error)
-                                        
-
-
-
-
-
-#Ya van 4, faltan 6 más.             
-                                               
+                                                                                                  
                     #Si el usuario escoge el número cinco (5), modificara al Proveedor.
                     elif(opcion == 5):
                          while True:
                             try:
                                 Proveedor = input("Ingrese el Nombre del Proovedor del activo: ")
 
-                                #
-                                #
-                                #
-
-                                if (r'^[a-zA-Z]$', Proveedor) is not None:
+                                #'^[a-zA-Z]$' Esto nos estaria permitiendo nada más poder ingresar letras, sin una cantidad especifica.
+                                # Si agregamos una + antes del $, significa que podremos agregar más de un caracter.                                                            
+                                if (r'^[a-zA-Z]+$', Proveedor) is not None:
                                         data["Proveedor"] = Proveedor
                                         break
                                 else:
-                                        raise Exception("El Nombre del activo no cumple con el patrón establecido.")   
+                                        raise Exception("El Nombre del Proovedor no cumple con el patrón establecido.")   
                             except Exception as error:
                                 print(error)
+
+                #Si el usuario escoge el número seis (6), modificara a la empresa Responsable
+                elif(opcion == 6):
+                    while True:
+                        try:
+                              NombreEmpresaResponsable = input("Ingrese el Nombre de la empresa Responsable: ")
+
+                              if (r'^[a-zA-Z]+$', NombreEmpresaResponsable) is not None:
+                                        data["EmpresaResponsable"] = NombreEmpresaResponsable
+                                        break
+                              else:
+                                   raise Exception("El Nombre de la Empresa Responsable no cumple con el patrón establecido.")
+                        except Exception as error:
+                            print(error)
+#Ya van 6, faltan 4 más. 
+
+                #Si el usuario escoge el número siete (7), modificara la marca.
+
+                # elif opcion == 7:
+                #     while True:
+                #          try:
+                #               Marca = input("Ingrese el Nombre de la marca.")
+                #                 if (r'^[a-zA-Z]+$', Marca) is not None:
+                #                         data["EmpresaResponsable"] = Marca
+                #                         break
+                #               else:
+                #                    raise Exception("El Nombre de la Empresa Responsable no cumple con el patrón establecido.")
+                #         except Exception as error:
+                #             print(error)
 
                     #Es en cuyo caso se desee EDITAR más de un dato (por ejemplo, que ya editamos un dato y queramos cambiar otro sin tener que buscar TODO de vuelta.)
                     confirmacion = ""            
@@ -171,7 +213,7 @@ def updateActivos(id):
                 print(error)
         
         headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-        peticion = requests.put(f"http://154.38.171.54:5502/activos/", headers=headers, data=json.dumps(data))
+        peticion = requests.put(f"http://154.38.171.54:5502/activos?NroItem", headers="keys", data=json.dumps(data))
         res = peticion.json()
         return [res]
     else:
@@ -199,22 +241,22 @@ def menu():
 		1. Para continuar.
 
 """)
-		opcion = input("\Seleccione una de las opciones: ")
-		#Pedimos al usuario ingresar un número para escoger la opción que desea del menú de EDITAR ACTIVOS
-		if re.match(r'^[0-1]$', opcion) is not None:
-            #Con esta validación vamos a comprobar que el número que ingrese se encuentre
-            #Dentro del parametro de 0 a 1. Además, de que en caso de que ingrese un 
-            #número distinto a los posibles, volvera a sacar el mismo menú.
-			opcion = int(opcion)  # Lo convertimos a un número entero
-            #Empezamos a meter los condicionales para el menú.
-               
-        #Si la opción es cero, va al menú anterior (getActivos).
-		if (opcion == 0):
-			break
-		#Volver al menú principal
-		
-        #Si el usuario selecciona 1, modificara/editara los datos.
-        #elif (opcion == 1):
-            #print(tabulate(updateActivo(id)))
-            #input("Presione 0 (Cero) para volver: ") #Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-        #Editar
+opcion = input("Seleccione una de las opciones: ")
+# Pedimos al usuario ingresar un número para escoger la opción que desea del menú de EDITAR ACTIVOS
+if re.match(r'^[0-1]$', opcion) is not None:
+    # Con esta validación vamos a comprobar que el número que ingrese se encuentre
+    # Dentro del parámetro de 0 a 1. Además, de que en caso de que ingrese un
+    # número distinto a los posibles, volverá a sacar el mismo menú.
+    opcion = int(opcion)  # Lo convertimos a un número entero
+    # Empezamos a meter los condicionales para el menú.
+    # Si la opción es cero, va al menú anterior (getActivos).
+    if opcion == 0:
+        GetActivos.menu()
+        # al usar el codigo de break para poder volver al menú de getActivos daba error, por lo que
+        # Para solucionarlo y no quedarme sin opciones, decidi importar getActivos
+        
+    # Si el usuario selecciona 1, modificara/editara los datos.
+    elif opcion == 1:
+        print(tabulate(updateActivos(id)))
+        input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+    # Editar
