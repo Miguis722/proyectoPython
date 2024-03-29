@@ -1,7 +1,8 @@
+from tabulate import tabulate
 import os
 import re
 import requests
-import Modules.Activos.crudActivos as CRDActivos #Crud activos se encargara de la funcionalidad de EDITAR los activos de la base de datos.
+import Modules.Activos.crudActivos as CRUDActivos #Crud activos se encargara de la funcionalidad de EDITAR los activos de la base de datos.
 import Modules.Activos.delActivos as DELETEActivos #Se encargara de la funcionalidad de ELIMINAR un activo de la base de datos.
 import Modules.Activos.PostActivos as PostActivos #Se encargara de la funcionalidad de AGREGAR  un nuevo Activo a la base de datos.
 
@@ -9,12 +10,33 @@ import Modules.Activos.PostActivos as PostActivos #Se encargara de la funcionali
 #Servidor de Activos
 def getAllDataActivos():
 	peticion = requests.get("http://154.38.171.54:5502/activos")
-	data= peticion.json()
+	data = peticion.json()
 	return data
+
+
+def SearchActivo(id):
+    Acitov = []
+    for val in getAllDataActivos():
+        if val.get('NroItem') or val.get('id') == id:
+            Acitov.append({ 
+                        "Identificacion": val.get('NroItem'),
+                        "Item N°" : val.get("NroItem"),  
+                        "Codigo de Transacción": val.get('CodTransaccion'),
+                        "Número de serie": val.get("NroSerial"),
+                        "Codigo en Campus": val.get("CodCampus"),
+                        "Formulario": val.get('NroFormulario'),
+                        "Nombre": val.get('Nombre'),
+                        "Proveedor": val.get('Proveedor'),
+                        "Responsable": val.get('EmpresaResponsable'),
+                        "Id de la marca": val.get('idMarca'),
+                        "Id del tipo": val.get('idTipo')
+                })
+    return Acitov
+
 
 def menu():
     while True:
-        os.system("cls")
+        os.system("cls") or os.system("clear")
         print("""
               
 
@@ -41,14 +63,18 @@ def menu():
             opcion = int(opcion)  # Lo convertimos a un número entero
             #Empezamos a meter los condicionales para el menú.
         if (opcion == 1):
-             print("Hola Mundo")
+            PostActivos.menu()
             #Agregar
         elif (opcion == 2):
-            CRDActivos.menu()
+            CRUDActivos.menu()
             #Editar
-        #elif (opcion == 3):
+        elif (opcion == 3):
+            DELETEActivos.menu()
             #Eliminar
-        #lif (opcion == 4):
+        elif (opcion == 4):
+            id = input("Ingrese el ID a buscar: ")
+            print(tabulate(SearchActivo(id),headers="keys", tablefmt = "rounded_grid"))
+            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #Buscar
         elif(opcion == 5):
             break

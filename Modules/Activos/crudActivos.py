@@ -71,13 +71,14 @@ def  NumeroDeEstadoExistenteXEstado(nombre_estado):
 
 
 #Deseamos editar un dato de los ya existentes en la base de datos.
-def updateActivos(id):
-    data = getAllDataActivos(id)
-    if(len(data)):
+def updateActivos(NroItem):
+    data = getAllDataActivos()  
+    if len(data):
         print("Activo Encontrado")
-        print(tabulate([data], headers="keys", tablefmt="rounded_grid"))
-        data["NroItem"] = data["NroItem"]
-        continuarActualizar = True
+        print(tabulate([data], headers=headers, tablefmt="rounded_grid"))
+        for item in data:
+             if item["NroItem"] == NroItem:
+                continuarActualizar = True
         while continuarActualizar:
             try:
 
@@ -325,7 +326,7 @@ def updateActivos(id):
                 print(error)
         
         headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-        peticion = requests.put(f"http://154.38.171.54:5502/activos?NroItem", headers="keys", data=json.dumps(data))
+        peticion = requests.put(f"http://154.38.171.54:5502/activos", headers=headers, data=json.dumps(data))
         res = peticion.json()
         return [res]
     else:
@@ -367,6 +368,7 @@ def menu():
             
         # Si el usuario selecciona 1, modificara/editara los datos.
         elif opcion == 1:
-            print(tabulate(updateActivos(id)))
+            NroItem = input("Ingrese el NroItem que desea modificar: ")
+            print(tabulate(updateActivos(NroItem)))
             input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         # Editar
