@@ -15,10 +15,11 @@ def getAllDataActivos():
 
 
 def SearchActivo(id):
-    Acitov = []
-    for val in getAllDataActivos():
-        if val.get('NroItem') or val.get('id') == id:
-            Acitov.append({ 
+    Activos = []
+    try:
+        for val in getAllDataActivos():
+            if val.get('NroItem') == id or val.get('id') == id:
+                Activos.append({ 
                         "Identificacion": val.get('NroItem'),
                         "Item N°" : val.get("NroItem"),  
                         "Codigo de Transacción": val.get('CodTransaccion'),
@@ -31,12 +32,19 @@ def SearchActivo(id):
                         "Id de la marca": val.get('idMarca'),
                         "Id del tipo": val.get('idTipo')
                 })
-    return Acitov
+        if not Activos:
+            raise Exception("El número ID o El número de Item suministrado no se encuentra en la base de datos existente.")
+        return Activos
+    except Exception as error:
+        print(error)
+        
+
 
 
 def menu():
     while True:
-        os.system("cls") or os.system("clear")
+        #CLS se usa en vez del CLEAR, debido a que uso Windows y no Linux.
+        os.system("cls") or ("clear")
         print("""
               
 
