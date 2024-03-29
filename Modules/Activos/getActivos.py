@@ -1,9 +1,9 @@
 import os
 import re
 import requests
-import crudActivos as CRDActivos #Crud activos se encargara de la funcionalidad de EDITAR los activos de la base de datos.
-import delActivos as DELETEActivos #Se encargara de la funcionalidad de ELIMINAR un activo de la base de datos.
-import PostActivos as PostActivos #Se encargara de la funcionalidad de AGREGAR  un nuevo Activo a la base de datos.
+import Modules.Activos.crudActivos as CRDActivos #Crud activos se encargara de la funcionalidad de EDITAR los activos de la base de datos.
+import Modules.Activos.delActivos as DELETEActivos #Se encargara de la funcionalidad de ELIMINAR un activo de la base de datos.
+import Modules.Activos.PostActivos as PostActivos #Se encargara de la funcionalidad de AGREGAR  un nuevo Activo a la base de datos.
 
 
 #Servidor de Activos

@@ -3,7 +3,7 @@ import os
 import re
 import requests
 import json
-import getActivos as GetActivos
+import Modules.Activos.getActivos as GetActivos
 #Servidor de Activos
 def getAllDataActivos():
 	peticion = requests.get("http://154.38.171.54:5502/activos")
@@ -334,6 +334,10 @@ def updateActivos(id):
         }]
 
 
+#  ____ ____ ____ ____ ____ ____ _________ ____ ____ ____ ____ ____ ____ ____ 
+# ||E |||D |||I |||T |||A |||R |||       |||A |||C |||T |||I |||V |||O |||S ||
+# ||__|||__|||__|||__|||__|||__|||_______|||__|||__|||__|||__|||__|||__|||__||
+# |/__\|/__\|/__\|/__\|/__\|/__\|/_______\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
 
 
@@ -343,32 +347,29 @@ def menu():
 		print("""
 
 
- ____ ____ ____ ____ ____ ____ _________ ____ ____ ____ ____ ____ ____ ____ 
-||E |||D |||I |||T |||A |||R |||       |||A |||C |||T |||I |||V |||O |||S ||
-||__|||__|||__|||__|||__|||__|||_______|||__|||__|||__|||__|||__|||__|||__||
-|/__\|/__\|/__\|/__\|/__\|/__\|/_______\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
 		
 		0. Si desea volver atrás.
 		1. Para continuar.
 
-""")
+        """)
 opcion = input("Seleccione una de las opciones: ")
-# Pedimos al usuario ingresar un número para escoger la opción que desea del menú de EDITAR ACTIVOS
+    # Pedimos al usuario ingresar un número para escoger la opción que desea del menú de EDITAR ACTIVOS
 if re.match(r'^[0-1]$', opcion) is not None:
-    # Con esta validación vamos a comprobar que el número que ingrese se encuentre
-    # Dentro del parámetro de 0 a 1. Además, de que en caso de que ingrese un
-    # número distinto a los posibles, volverá a sacar el mismo menú.
-    opcion = int(opcion)  # Lo convertimos a un número entero
-    # Empezamos a meter los condicionales para el menú.
-    # Si la opción es cero, va al menú anterior (getActivos).
-    if opcion == 0:
-        GetActivos.menu()
-        # al usar el codigo de break para poder volver al menú de getActivos daba error, por lo que
-        # Para solucionarlo y no quedarme sin opciones, decidi importar getActivos
-        
-    # Si el usuario selecciona 1, modificara/editara los datos.
-    elif opcion == 1:
-        print(tabulate(updateActivos(id)))
-        input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-    # Editar
+        # Con esta validación vamos a comprobar que el número que ingrese se encuentre
+        # Dentro del parámetro de 0 a 1. Además, de que en caso de que ingrese un
+        # número distinto a los posibles, volverá a sacar el mismo menú.
+        opcion = int(opcion)  # Lo convertimos a un número entero
+        # Empezamos a meter los condicionales para el menú.
+        # Si la opción es cero, va al menú anterior (getActivos).
+        if opcion == 0:
+            GetActivos.menu()
+            # al usar el codigo de break para poder volver al menú de getActivos daba error, por lo que
+            # Para solucionarlo y no quedarme sin opciones, decidi importar getActivos
+            
+        # Si el usuario selecciona 1, modificara/editara los datos.
+        elif opcion == 1:
+            print(tabulate(updateActivos(id)))
+            input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+        # Editar
+input("")
