@@ -340,7 +340,8 @@ def updateActivos(NroItem):
 
 def menu():
     while True:
-        os.system("cls")
+        #CLS se usa en vez del CLEAR, debido a que uso Windows y no Linux.
+        os.system("cls") or ("clear")
         print("""
             ____ ____ ____ ____ ____ ____ _________ ____ ____ ____ ____ ____ ____ ____ 
             ||E |||D |||I |||T |||A |||R |||       |||A |||C |||T |||I |||V |||O |||S ||
