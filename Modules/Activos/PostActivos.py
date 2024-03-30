@@ -10,6 +10,11 @@ def getAllDataActivos():
 	data = peticion.json()
 	return data
 
+#Queremos obtener solamente el NroItem
+def ActivosNroItem(NroItem):
+    for val in getAllDataActivos():
+        if val.get('NroItem') == NroItem:
+            return [val]
 
 
 # Aquí se crea una lista de todos los NroItem existentes y se devuelve el siguiente número disponible.
@@ -29,43 +34,52 @@ def nuevoInfoActivos():
 #Deseamos agregar la información de un nuevo Activo, asignandole automaticamente un nuevo número de NroItem
 def AddInfoActivos():
     Activo = {}
-    while True:
-        try:
-            if not Activo.get('NroItem'):
-                codigo = input('Ingrese el Numero de Item: ')
-                if re.match(r'^[0-9]+$', codigo):
-                    datas = getAllDataActivos(codigo)
-                    if datas:
-                        print(tabulate(datas, headers="keys", tablefmt="rounded_grid"))
-                        raise Exception("El Numero de Item ingresado ya existe, por favor verifique.")
-                    else:
-                        codigo = int(codigo)
-                        Activo["NroItem"] = codigo
-                else: 
-                    raise Exception("El Numero de item ingresado, no cumple con los parametros establecidos.")
-                
+    try:
+        if not Activo.get('NroItem'):
+            while True:
+                                    os.system("cls")
+                                    NumeroItem = input('Ingrese el número de item del activo: ')
+                                    if NumeroItem.isdigit():
+                                        NumeroItem = int(NumeroItem)
+                                        data = ActivosNroItem(NumeroItem)
+                                        if data:
+                                            raise Exception('El número de item del activo ya existe, porfavor verifique.')
+                                        else:
+                                            getAllDataActivos['NroItem'] = NumeroItem
+                                    else:
+                                        raise Exception('El número de item del activo no cumple con el estandar establecido')
+                                    break
 
-            if not Activo.get("CodTransaccion"):
-                
-                CodTransaccion = input("Ingrese el Codigo de Transaccion: ")
-                #Ponemos que tienen que ponerse solo números de 0 a 9 (numeros enteros)
-                if(re.match(r'^[0-9]+$', CodTransaccion) is not None):
-                    Activo["CodTransaccion"] = CodTransaccion
-                else:
-                    raise Exception ("El codigo de transacción ingresado, no cumple con los parametros establecidos, por favor verifique.")
+        if not Activo.get("CodTransaccion"):
+            CodTransaccion = input("Ingrese el Codigo de Transaccion: ")
+            if re.match(r'^[0-9]+$', CodTransaccion):
+                Activo["CodTransaccion"] = CodTransaccion
+            else:
+                raise Exception("El codigo de transacción ingresado no cumple con los parametros establecidos, por favor verifique.")
                 
 
             if not Activo.get("Nroserial"):
-                
-                Nroserial = input("Ingrese el Serial del activo: ")
+                print(""" 
+                        ¿El activo posee un número de serial?
+                      
+                                1. Si
+                                2. No
+                      """)
+                opcion = input("\nSeleccione una opción: ")
+                if opcion == 2:
+                        Activo["Nroserial"] = 'Sin Serial'
+                if opcion == 1:
+                    Nroserial = input("Ingrese el Serial del activo: ")
                  #Permite ingresar letras mayúsculas y minúsculas. Además de que puede ingresar números del 0 al 9.
-                if(re.match(r'[A-Za-z0-9]+', Nroserial) is not None):
-                    Activo["Nroserial"] = Nroserial
+                    if(re.match(r'[A-Za-z0-9]+', Nroserial) is not None):
+                        Activo["Nroserial"] = Nroserial
+                
                 # Acepta cualquier combinación de letras y números en cualquier orden y en cualquier cantidad.
                 # Es decir que si por ejemplo ponemos un 123HolaMundo, lo aceptara, al igual que un Hola123Mundo.
                 # Ya que no importa el Orden que tenga.
-                else:
-                    raise Exception ("El Serial ingresado, no cumple con los parametros establecidos, porfavor verifique.")
+                    else:
+                        raise Exception ("El Serial ingresado, no cumple con los parametros establecidos, porfavor verifique.")
+        
                 
 
             if not Activo.get("CodCampus"):
@@ -213,18 +227,19 @@ def AddInfoActivos():
                     raise Exception ("El ID del estado del activo ingresado,  no cumple con los parametros establecidos, porfavor verifique.")
                 
             raise Exception ("No se ha podido crear el activo deseado, intentelo nuevamente.")
-        except Exception as error:
-            print(error)
+    except Exception as error:
+        print(error)
 
 
-
+    try:
             headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
             peticion = requests.post("http://154.38.171.54:5502/activos", headers=headers, data=json.dumps(Activo, indent=4))
             res = peticion.json()
             return [res]
-        except Exception as error:
+    except Exception as error:
             print(error)
-            print("Ha ocurrido un error inesperado, inténtelo nuevamente.")
+            print("Ha ocurrido un error inesperado al enviar los datos, inténtelo nuevamente.")
+            
 
 
 

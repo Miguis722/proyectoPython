@@ -28,3 +28,4 @@
 27. Culminación de getActivos, ya está funcionando la función de buscar un activo por medio de su respectivo id o su número de item.
 28. Agregamos algunas lineas de codigo debido a que estaban dando error, y porque puede que corran el programa desde un equipo LINUX, por lo que el comando ("cls") no funcionaria, por lo que lo corregimos agregando en caso de que se haga en otro equipo. Todo con relacionado con el CACHÉ se cambia de forma automatica por el computador, asi que no hace falta explicar los procesos de texto que están allí escritos.
 29. En PostActivos  agregamos una función que nos permite agregar un nuevo activo. En main se me paso por alto el clear, por lo que lo agregue. Desarrollamos y culminamos el menú de PostActivos, es decir, el menú para poder crear un nuevo activo.
+30. Falta arreglar el error de PostActivos debido a que despues del NroItem no pasa. Añadi además una opción por si el activo no tenia un serial en el.
