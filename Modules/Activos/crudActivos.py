@@ -342,6 +342,8 @@ def menu():
     while True:
         #CLS se usa en vez del CLEAR, debido a que uso Windows y no Linux.
         os.system("cls") or ("clear")
+        #Link para sacar el diseño:
+        # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Digital&t=AGREGAR%20ACTIVOS
         print("""
             ____ ____ ____ ____ ____ ____ _________ ____ ____ ____ ____ ____ ____ ____ 
             ||E |||D |||I |||T |||A |||R |||       |||A |||C |||T |||I |||V |||O |||S ||
