@@ -27,4 +27,4 @@
 26. Solucionamos algunos errores que se me pasaron por alto, se genera el caché, por lo que modificamos el gitnore. Además de corrección de espacios y errores (Problemas de tabulación) en crudActivos que hacia que no corriera el codigo de forma adecuada. Probamos el codigo para ver si funciona correcta y asi es, por lo que ya culminamos CRUDACTIVOS. Actualización de README.
 27. Culminación de getActivos, ya está funcionando la función de buscar un activo por medio de su respectivo id o su número de item.
 28. Agregamos algunas lineas de codigo debido a que estaban dando error, y porque puede que corran el programa desde un equipo LINUX, por lo que el comando ("cls") no funcionaria, por lo que lo corregimos agregando en caso de que se haga en otro equipo. Todo con relacionado con el CACHÉ se cambia de forma automatica por el computador, asi que no hace falta explicar los procesos de texto que están allí escritos.
-29. 
+29. En PostActivos  agregamos una función que nos permite agregar un nuevo activo. En main se me paso por alto el clear, por lo que lo agregue. Desarrollamos y culminamos el menú de PostActivos, es decir, el menú para poder crear un nuevo activo.

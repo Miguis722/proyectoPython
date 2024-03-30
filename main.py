@@ -22,7 +22,7 @@ if (__name__ == '__main__'):
 #def menuPrincipal():
     while True:
         #CLS se usa en vez del CLEAR, debido a que uso Windows y no Linux.
-        os.system("cls")
+        os.system("cls") or ("clear")
         #Sacamos el diseño del Menú principal
         # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Small%20Keyboard&t=Menu%20Principal
 
