@@ -10,7 +10,7 @@ import requests
 import Modules.Activos.getActivos as Activos
 import Modules.getAsignacion as Asignacion
 import Modules.getMovimiento as Movimientos
-import Modules.getPersonal as Personal
+import Modules.Personal.getPersonal as Personal
 import Modules.getReportes as Reportes
 import Modules.getZonas as Zonas
 #Importaremos de donde se está sacando toda la información, además le asignaremos un nombre en especial para hacernos más facil

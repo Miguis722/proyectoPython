@@ -13,6 +13,23 @@ def getAllDataActivos():
 	data = peticion.json()
 	return data
 
+def submenu():
+     print("""
+           ¿Que deseas visualizar?
+
+           1. Todo el personal.
+           2. Buscar un personal en especifico.""")
+     opcion = input("\nSeleccione una de las opciones: ")
+     if re.match(r'^[1-5]$', opcion) is not None:
+          opcion = int(opcion)
+          if opcion == 1:
+            print(tabulate(getAllDataActivos(),headers="keys", tablefmt = "rounded_grid"))
+            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+          elif opcion == 2:
+               id = input("Ingrese el ID a buscar: ")
+               print(tabulate(SearchActivo(id),headers="keys", tablefmt = "rounded_grid"))               
+               input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+            #Buscar
 
 def SearchActivo(id):
     Activos = []
@@ -80,9 +97,7 @@ def menu():
             DELETEActivos.menu()
             #Eliminar
         elif (opcion == 4):
-            id = input("Ingrese el ID a buscar: ")
-            print(tabulate(SearchActivo(id),headers="keys", tablefmt = "rounded_grid"))
-            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
+            submenu()
             #Buscar
         elif(opcion == 5):
             break
