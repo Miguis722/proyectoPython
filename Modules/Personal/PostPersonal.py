@@ -95,6 +95,6 @@ def menu():
         # Si el usuario selecciona 1, agregara el nuevo personal.
 			elif opcion == 1:
 				Id = input("Ingrese el CC o NIT del personal que desea modificar: ")
-				print(tabulate(NewPersonalInBase(id)))
+				print(tabulate(NewPersonalInBase(Id)))
 				input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         	# Editar
