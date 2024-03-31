@@ -81,7 +81,7 @@ def menu():
 					1. Para continuar.
  		""")
 		opcion = input("\nSeleccione una de las opciones: ")
-    # Pedimos al usuario ingresar un número para escoger la opción que desea del menú de EDITAR ACTIVOS
+    # Pedimos al usuario ingresar un número para escoger la opción que desea del menú de AGREGAR PERSONAL.
 		if re.match(r'^[0-1]$', opcion) is not None:
         # Con esta validación vamos a comprobar que el número que ingrese se encuentre
         # Dentro del parámetro de 0 a 1. Además, de que en caso de que ingrese un
@@ -94,7 +94,6 @@ def menu():
             
         # Si el usuario selecciona 1, agregara el nuevo personal.
 			elif opcion == 1:
-				Id = input("Ingrese el CC o NIT del personal que desea modificar: ")
-				print(tabulate(NewPersonalInBase(Id)))
+				print(tabulate(NewPersonalInBase()))
 				input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-        	# Editar
+        	# AGREGAR
