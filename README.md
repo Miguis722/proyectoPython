@@ -36,4 +36,4 @@
 35. Desarrollamos el crud del Personal en el cual pedimos que el usuario ingrese el id (codigo del personal) y escoja que es lo que desea editar o agregar.
 36. Desarrollamos el menúy para agregar a un personal nuevo a la base de datos, además le creamos el menú.
 36. Desarrollamos el menú de Zonas, desarrollamos el getZonas, debido a que son pocas las zonas, decidi no buscarla directamente por el id/nombre/ o la capacidad. Además agregue la opción del ("clear") en caso de que se haga en un linux y no en un windows. Hacemos el menú de getZonas. Confirmamos la visualización de los datos de Zonas, debido a que no podemos mostrar directamente las keys de como está la base de dato debemos guardarlo por nombres distintos para el usuario.
-37. 
+37. Se me olvidaba decir que importe los archivos python de modulos.zonas debido a que esa es su ubicación, recordar que cada archivo tiene una funcionalidad distinta que va desde agregar, editar hasta eliminar algun dato.
