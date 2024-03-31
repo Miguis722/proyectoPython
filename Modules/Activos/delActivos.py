@@ -5,45 +5,56 @@ import re
 import json
 import requests
 
-#Servidor de Activos
-def getAllDataActivos():
-	peticion = requests.get("http://154.38.171.54:5502/activos")
-	data = peticion.json()
-	return data
+# Servidor de Personal
+def get_all_data_personal():
+    # Realiza una solicitud GET al servidor de personal y devuelve los datos obtenidos en formato JSON
+    response = requests.get("http://154.38.171.54:5502/personas")
+    return response.json()
 
-def ActivosNumeroDeItem(NroItem):
-    ItemEncontrados = []
-    for val in getAllDataActivos():
-        if val.get('NroItem') == NroItem:
-            ItemEncontrados.append(val)
-            return ItemEncontrados
+def find_personal_by_id(id):
+    # Busca un registro de personal por su identificador en los datos obtenidos del servidor
+    for person in get_all_data_personal():
+        if person.get('nroId (CC, Nit)') == id:
+            return person
+    print('\nEl personal no existe')
+    return None
+
+# Servidor de Activos
+def get_all_data_activos():
+    # Realiza una solicitud GET al servidor de activos y devuelve los datos obtenidos en formato JSON
+    response = requests.get("http://154.38.171.54:5502/activos")
+    return response.json()
+
+def find_activo_by_item_number(NroItem):
+    # Busca un activo por su número de ítem en los datos obtenidos del servidor
+    for item in get_all_data_activos():
+        if item.get('NroItem') == NroItem:
+            return item
     print('\nEl activo no existe')
-    return ItemEncontrados
+    return None
 
-#Deseamos eliminar un activo por medio de su NroItem, tenemos la condición especial de que no se elimina, solo se cambia el estado del activo a NO ASIGNADO o "0"
-def deleteActivo(NroItem): 
+def delete_personal(id):
+    # Obtiene los datos del personal con el ID proporcionado
+    personal_data = find_personal_by_id(id)
     
-    data = ActivosNumeroDeItem(NroItem)
-    if len(data):
-        while True:
-            os.system("cls") or ("clear")
-            try:
-                #Comprobamos que en asignaciones no se encuentre asignado a alguna persona o una zona.
-                #Si llega a estar asignado saltara el else:. Diciendo que no se puede eliminar.
-                if len(data[0]['asignaciones']) == 0:
-                    data[0]['idEstado'] = "0"
-                else:
-                    raise Exception("El activo que está intentando eliminar está asignado a una persona o zona, por lo tanto no se puede eliminar.")                        
-            except Exception as error:
-                print(error)
-                break
-    
-        peticion = requests.put(f"http://154.38.171.54:5502/activos?NroItem={NroItem}", data=json.dumps(data[0]).encode("UTF-8"))
-        res = peticion.json()
-        if 'Mensaje' in res:
-            print(res['Mensaje'])
-        input("Presione 0 (Cero) para volver: ")
-        return [res]
+    if personal_data:
+        # Verifica si el personal tiene asignaciones
+        if len(personal_data['asignaciones']) == 0:
+            # Si no tiene asignaciones, marca el estado del personal como "0"
+            personal_data['idEstado'] = "0"
+            # Realiza una solicitud PUT para actualizar los datos del personal
+            response = requests.put("http://154.38.171.54:5502/personas", data=json.dumps(personal_data).encode("UTF-8"))
+            if response.status_code == 200:
+                print("El personal ha sido eliminado exitosamente.")
+            else:
+                print("Hubo un problema al intentar eliminar el personal.")
+        else:
+            print("El personal que está intentando eliminar está asignado, por lo tanto no se puede eliminar.")
+    else:
+        print("No se encontró al personal con el ID especificado.")
+
+    # Espera la entrada del usuario para volver
+    input("Presione Enter para volver: ")
 
 #Hacemos el Menú
 def menu():
@@ -77,6 +88,6 @@ def menu():
         # Si el usuario selecciona 1, modificara/editara los datos.
         elif opcion == 1:
             NroItem = (input("Ingrese el NroItem que desea eliminar: "))
-            print(tabulate(deleteActivo(NroItem)))
+            print(tabulate(delete_personal(NroItem)))
             input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         #Eliminar
