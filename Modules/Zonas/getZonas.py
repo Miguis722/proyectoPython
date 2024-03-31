@@ -1,16 +1,31 @@
 import os
 import re
 import requests
+import Modules.Zonas.delZonas as EliminarZona
+import Modules.Zonas.crudZonas as EditarZona
+import Modules.Zonas.PostZonas as AgregarNuevaZona
+from tabulate import tabulate
 
 #Servidor de Zonas
 def getAllDataZonas():
-	peticion = requests.get("http://")
+	peticion = requests.get("http://154.38.171.54:5502/zonas")
 	data= peticion.json()
 	return data
 
+def Zonas():
+    ZonaN = list()
+    for val in getAllDataZonas():
+        Zona = dict({
+                "ID": val.get('id'), 
+                "Nombre de la Zona": val.get('nombreZona'),
+                "Capacidad Maxima": val.get('totalCapacidad')
+            })
+        ZonaN.append(Zona)
+    return ZonaN
+
 def menu():
     while True:
-        os.system("cls")
+        os.system("cls") or ("clear")
         print("""
               
                 
@@ -36,13 +51,18 @@ def menu():
             opcion = int(opcion)  # Lo convertimos a un número entero
             #Empezamos a meter los condicionales para el menú.
         if (opcion == 1):
+            AgregarNuevaZona.menu()
             #Agregar
-        #elif (opcion == 2):
+        elif (opcion == 2):
+            EditarZona.menu()
             #Editar
-        #elif (opcion == 3):
+        elif (opcion == 3):
+            EliminarZona.menu()
             #Eliminar
-        #elif (opcion == 4):
+        elif (opcion == 4):
+            print(tabulate(Zonas(), headers="keys", tablefmt="rounded_grid"))
+            input("Presione 0 (Cero) para volver: ")#Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
             #Buscar
-        #elif(opcion == 5):
+        elif(opcion == 5):
             break
         #Volver al menú principal
