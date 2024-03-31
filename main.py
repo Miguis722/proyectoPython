@@ -8,11 +8,11 @@ import requests
 #Empezamos importando las primeras funciones que necesitaremos en un futuro
 #Empezaremos haciendo un menú de bienvenida a los usuarios y más adelante podremos importar el resto de procesos.
 import Modules.Activos.getActivos as Activos
-import Modules.getAsignacion as Asignacion
-import Modules.getMovimiento as Movimientos
+import Modules.Asignacion.getAsignacion as Asignacion
+import Modules.Movimientos.getMovimiento as Movimientos
 import Modules.Personal.getPersonal as Personal
-import Modules.getReportes as Reportes
-import Modules.getZonas as Zonas
+import Modules.Reportes.getReportes as Reportes
+import Modules.Zonas.getZonas as Zonas
 #Importaremos de donde se está sacando toda la información, además le asignaremos un nombre en especial para hacernos más facil
 #La tarea de redireccionar a los usuarios.
 

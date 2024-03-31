@@ -3,6 +3,10 @@ import re
 import requests
 from tabulate import tabulate
 import json
+import Modules.Personal.crudPersonal as CRUDPersonal
+import Modules.Personal.delPersonal as DELPersonal
+import Modules.Personal.PostPersonal as PostPersonal
+
 
 #Servidor de Personal
 def getAllDataPersonal():
@@ -76,15 +80,17 @@ def menu():
             opcion = int(opcion)  # Lo convertimos a un número entero
             #Empezamos a meter los condicionales para el menú.
         if (opcion == 1):
-            break
+            PostPersonal.menu()
         #Agregar
-        #elif (opcion == 2):
+        elif (opcion == 2):
+            CRUDPersonal.menu()
             #Editar
-        #elif (opcion == 3):
+        elif (opcion == 3):
+            DELPersonal.menu()
             #Eliminar
         elif (opcion == 4):
             submenu()
             #Buscar
-        #elif(opcion == 5):
-            
+        elif(opcion == 5):
+            break
         #Volver al menú principal
