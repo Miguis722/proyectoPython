@@ -35,3 +35,4 @@
 34. Pasamos el codigo realizado por chat gpt para que verifique que todo está escrito bien y que no haya un error o una logica que pueda generar alguna interferencia con otra función, además de que practique el metodo KISS.
 35. Desarrollamos el crud del Personal en el cual pedimos que el usuario ingrese el id (codigo del personal) y escoja que es lo que desea editar o agregar.
 36. Desarrollamos el menúy para agregar a un personal nuevo a la base de datos, además le creamos el menú.
+36. 
