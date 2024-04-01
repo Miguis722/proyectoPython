@@ -27,7 +27,8 @@ def NewZonaInBase():
         try:
             if not Zona.get('nombreZona'):
                 NombreDeLaZona = input("Ingrese el nombre de la zona: ")
-                if re.match(r'^[A-Za-z]+$', NombreDeLaZona):
+                if re.match(r'\w+', NombreDeLaZona) is None:
+                    NombreDeLaZona =str(NombreDeLaZona)
                     Data = getAllDataZonas()
                     if Data:
                         print(tabulate(Data, headers="keys", tablefmt="rounded_grid"))
@@ -40,7 +41,7 @@ def NewZonaInBase():
                 
             if not Zona.get('totalCapacidad'):
                 CapacidadMaxima = input("Ingrese la Capacidad Maxima de la Zona: ")
-                if re.match(r'^[0-9]+$', CapacidadMaxima):
+                if re.match(r'^[0-9]+$', CapacidadMaxima) is None:
                     Zona['totalCapacidad'] = int(CapacidadMaxima)
                 else:
                     print("Solo se permiten números.")
@@ -50,6 +51,15 @@ def NewZonaInBase():
         except Exception as error:
             print(error)
 
+        Zona ={
+             "Nombre de la Zona": (NombreDeLaZona),
+             "Capacidad Maxima de la zona": (CapacidadMaxima)
+        }
+        headers = {'Content-type': 'aplication/json', 'chatset': 'UTF-8'}
+        peticion = requests.post("http://154.38.171.54:5502/zonas", headers=headers, data=json.dumps(Zona))
+        res = peticion.json()
+        res["Mensaje"] = "Se agrego correctamente la zona."
+        return [res]
 
 
 def menu():
@@ -82,6 +92,6 @@ def menu():
             
         # Si el usuario selecciona 1, agregara la nueva zona en la base de datos.
 			elif opcion == 1:
-				print(tabulate(NewZonaInBase()))
+				print(tabulate(NewZonaInBase(), headers="keys", tablefmt="rounded_grid"))
 				input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         	# AGREGAR
