@@ -10,7 +10,7 @@ def getAllDataAsignacion():
 
 def menu():
     while True:
-        os.system("cls")
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("""
             
                 +-+-+-+-+ +-+ +-+-+-+-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+

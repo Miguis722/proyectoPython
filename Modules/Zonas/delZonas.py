@@ -41,7 +41,7 @@ def deleteZonas(id):
 
 def menu():
 	while True:
-		os.system("cls") or os.system("clear")
+		os.system('cls' if os.name == 'nt' else 'clear')
 		 #Link para sacar el diseño:
         # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Digital&t=AGREGAR%20ACTIVOS
 		print("""										                               

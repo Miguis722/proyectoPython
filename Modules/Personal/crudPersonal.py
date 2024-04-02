@@ -14,7 +14,7 @@ def getAllDataPersonal():
 #Deseamos editar la información de un personal ya existente en la base de datos.
 def modifyAPersonalxd(id):
 	while True:
-		os.system("cls") or ("clear")
+		os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
 		data =  getAllDataPersonal()
 		if len(data):
 			print("Personal Encontrado")
@@ -73,7 +73,7 @@ def modifyAPersonalxd(id):
 
 def menu():
 	while True:
-		os.system("cls") or ("clear")
+		os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
 		 #Link para sacar el diseño:
         # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Digital&t=AGREGAR%20ACTIVOS
 		print("""

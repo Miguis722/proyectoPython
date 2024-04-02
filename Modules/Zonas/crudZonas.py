@@ -14,7 +14,7 @@ def getAllDataZonas():
 
 def updateZonas(id):
     while True:
-        os.system("cls") or os.system("clear")
+        os.system('cls' if os.name == 'nt' else 'clear')
         data = getAllDataZonas()
         if len(data):
             print("Zona encontrada")
@@ -71,7 +71,7 @@ def updateZonas(id):
 
 def menu():
 	while True:
-		os.system("cls") or ("clear")
+		os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
 		 #Link para sacar el diseño:
         # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Digital&t=AGREGAR%20ACTIVOS
 		print("""

@@ -150,7 +150,7 @@ def getAllTrayectoriaDeActivos():
 def menu():
     while True:
         #CLS se usa en vez del CLEAR, debido a que uso Windows y no Linux.
-        os.system("cls") or ("clear")
+        os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
         print("""
 
                 +-+-+-+-+ +-+ +-+-+-+-+-+-+-+-+

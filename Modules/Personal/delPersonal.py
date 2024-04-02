@@ -41,7 +41,7 @@ def deletePersonal(id):
     data =  ANumeroDePersonal(id), ActivosNumeroDeItem()
     if len(data):
             while True:
-                os.system("cls") or ("clear")
+                os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
                 try:
                     if len(data[0]['asignaciones']) == 0:
                         data[0]['idEstado'] = "0"
@@ -59,7 +59,7 @@ def deletePersonal(id):
     
 def menu():
 	while True:
-		os.system("cls") or ("clear")
+		os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
 		 #Link para sacar el diseño:
         # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Digital&t=AGREGAR%20ACTIVOS
 		print("""
