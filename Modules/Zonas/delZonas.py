@@ -23,15 +23,15 @@ def confirmaciondataexistente(id):
 def deleteZonas(id):
         data = confirmaciondataexistente(id)
         if len(data):
-            peticion = requests.delete(f"https://154.38.171.54:5502/zonas/{id}")
+            peticion = requests.delete(f"http://154.38.171.54:5502/zonas/{id}")
             if peticion.status_code == 204:
                 data.append({"message": "Zona eliminado correctamente"})
                 return {
                     "body": data,
                     "status": peticion.status_code,
                 }
-            else: 
-                return{
+        else: 
+            return{
                     "body": [{
                         "Mensaje": "Zona no encontrada.",
                         "Id": id,
