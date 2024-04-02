@@ -43,7 +43,7 @@ def delete_personal(id):
             # Si no tiene asignaciones, marca el estado del personal como "0"
             personal_data['idEstado'] = "0"
             # Realiza una solicitud PUT para actualizar los datos del personal
-            response = requests.put("http://154.38.171.54:5502/personas", data=json.dumps(personal_data).encode("UTF-8"))
+            response = requests.delete(f"http://154.38.171.54:5502/personas/{id}", data=json.dumps(personal_data).encode("UTF-8"))
             if response.status_code == 200:
                 print("El personal ha sido eliminado exitosamente.")
             else:
@@ -74,7 +74,7 @@ def menu():
                
                """)
         opcion = input("\nSeleccione una de las opciones: ")
-        # Pedimos al usuario ingresar un número para escoger la opción que desea del menú de EDITAR ACTIVOS
+        # Pedimos al usuario ingresar un número para escoger la opción que desea del menú de ELIMINAR ACTIVOS
         if re.match(r'^[0-1]$', opcion) is not None:
         # Con esta validación vamos a comprobar que el número que ingrese se encuentre
         # Dentro del parámetro de 0 a 1. Además, de que en caso de que ingrese un
@@ -87,7 +87,7 @@ def menu():
             
         # Si el usuario selecciona 1, modificara/editara los datos.
         elif opcion == 1:
-            NroItem = (input("Ingrese el NroItem que desea eliminar: "))
-            print(tabulate(delete_personal(NroItem)))
+            ID = (input("Ingrese el ID que desea eliminar: "))
+            print(tabulate(delete_personal(ID)))
             input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         #Eliminar
