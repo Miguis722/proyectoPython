@@ -54,7 +54,7 @@ def modifyAPersonalxd(id):
 									print(error)
 						elif (opcion == 2):
 							while True:
-									Email = input("Ingre el Email: ")
+									Email = input("Ingrese el Email: ")
 									data["Email"] = Email
 									break
 						if (opcion == 3):
