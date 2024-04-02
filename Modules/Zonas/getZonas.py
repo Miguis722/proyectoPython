@@ -25,7 +25,7 @@ def Zonas():
 
 def menu():
     while True:
-        os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("""
               
                 

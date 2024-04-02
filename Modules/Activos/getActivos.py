@@ -61,7 +61,7 @@ def SearchActivo(id):
 def menu():
     while True:
         #CLS se usa en vez del CLEAR, debido a que uso Windows y no Linux.
-        os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("""
               
 

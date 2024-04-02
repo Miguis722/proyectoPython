@@ -41,7 +41,7 @@ def deletePersonal(id):
     data =  ANumeroDePersonal(id), ActivosNumeroDeItem()
     if len(data):
             while True:
-                os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
+                os.system('cls' if os.name == 'nt' else 'clear')
                 try:
                     if len(data[0]['asignaciones']) == 0:
                         data[0]['idEstado'] = "0"
@@ -50,7 +50,7 @@ def deletePersonal(id):
                 except Exception as error:
                     print(error)
                 break
-            peticion = requests.put(f"http://154.38.171.54:5502/personas", data=json.dumps(data[0]).encode("UTF-8"))
+            peticion = requests.delete(f"http://154.38.171.54:5502/personas/{id}", data=json.dumps(data[0]).encode("UTF-8"))
             res = peticion.json()
             if 'Mensaje' in res:
                 print(res['Mensaje'])
@@ -59,7 +59,7 @@ def deletePersonal(id):
     
 def menu():
 	while True:
-		os.system('cls' if os.name == 'nt' else 'clear') or ("clear")
+		os.system('cls' if os.name == 'nt' else 'clear')
 		 #Link para sacar el diseño:
         # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Digital&t=AGREGAR%20ACTIVOS
 		print("""
@@ -73,7 +73,7 @@ def menu():
 		1. Para continuar.
  		""")
 		opcion = input("\nSeleccione una de las opciones: ")
-    # Pedimos al usuario ingresar un número para escoger la opción que desea del menú de EDITAR ACTIVOS
+    # Pedimos al usuario ingresar un número para escoger la opción que desea del menú de ELIMINAR PERSONAL
 		if re.match(r'^[0-1]$', opcion) is not None:
         # Con esta validación vamos a comprobar que el número que ingrese se encuentre
         # Dentro del parámetro de 0 a 1. Además, de que en caso de que ingrese un
