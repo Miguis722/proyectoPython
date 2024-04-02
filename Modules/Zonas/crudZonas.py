@@ -104,4 +104,4 @@ def menu():
 				id = input("Introduzca el Nombre de la zona la cual desea modificar: ")
 				print(tabulate(updateZonas(id), headers="keys", tablefmt="rounded_grid"))
 				input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
-        	# AGREGAR
+        	# EDITAR
