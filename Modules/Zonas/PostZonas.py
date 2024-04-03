@@ -6,7 +6,7 @@ import requests
 
 #Servidor de Zonas
 def getAllDataZonas():
-	peticion = requests.get("http://154.38.171.54:5502/zonas")
+	peticion = requests.get("http://154.38.171.54:5503/zonas")
 	data= peticion.json()
 	return data
 
@@ -56,7 +56,7 @@ def NewZonaInBase():
              "Capacidad Maxima de la zona": (CapacidadMaxima)
         }
         headers = {'Content-type': 'aplication/json', 'chatset': 'UTF-8'}
-        peticion = requests.post("http://154.38.171.54:5502/zonas", headers=headers, data=json.dumps(Zona))
+        peticion = requests.post("http://154.38.171.54:5503/zonas", headers=headers, data=json.dumps(Zona))
         res = peticion.json()
         res["Mensaje"] = "Se agrego correctamente la zona."
         return [res]

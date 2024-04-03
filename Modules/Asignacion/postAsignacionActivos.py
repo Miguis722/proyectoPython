@@ -10,7 +10,7 @@ from datetime import date
 
 #Servidor de Activos
 def getAllDataActivos():
-	peticion = requests.get("http://154.38.171.54:5502/activos")
+	peticion = requests.get("http://154.38.171.54:5503/activos")
 	data = peticion.json()
 	return data
 

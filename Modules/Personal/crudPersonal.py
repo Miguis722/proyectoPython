@@ -7,7 +7,7 @@ import Modules.Personal.getPersonal as GetPer
 
 #Servidor de Personal
 def getAllDataPersonal():
-	peticion = requests.get("http://154.38.171.54:5502/personas")
+	peticion = requests.get("http://154.38.171.54:5503/personas")
 	data= peticion.json()
 	return data
 

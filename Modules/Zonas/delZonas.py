@@ -7,13 +7,13 @@ import requests
 
 #Servidor de Zonas
 def getAllDataZonas():
-	peticion = requests.get("http://154.38.171.54:5502/zonas")
+	peticion = requests.get("http://154.38.171.54:5503/zonas")
 	data= peticion.json()
 	return data
 
 def confirmaciondataexistente(id):
     try:
-        response = requests.get(f"http://154.38.171.54:5502/zonas/{id}")
+        response = requests.get(f"http://154.38.171.54:5503/zonas/{id}")
         response.raise_for_status()
         return [response.json()]
     except Exception as e:
@@ -23,7 +23,7 @@ def confirmaciondataexistente(id):
 def deleteZonas(id):
         data = confirmaciondataexistente(id)
         if len(data):
-            peticion = requests.delete(f"http://154.38.171.54:5502/zonas/{id}")
+            peticion = requests.delete(f"http://154.38.171.54:5503/zonas/{id}")
             if peticion.status_code == 204:
                 data.append({"message": "Zona eliminado correctamente"})
                 return {

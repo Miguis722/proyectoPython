@@ -6,7 +6,7 @@ import requests
 
 #Servidor de Activos
 def getAllDataActivos():
-	peticion = requests.get("http://154.38.171.54:5502/activos")
+	peticion = requests.get("http://154.38.171.54:5503/activos")
 	data = peticion.json()
 	return data
 
@@ -179,7 +179,7 @@ def AddInfoActivos():
         print(error)
 
         headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-        peticion = requests.post("http://154.38.171.54:5502/activos", headers=headers, data=json.dumps(Activo, indent=4))
+        peticion = requests.post("http://154.38.171.54:5503/activos", headers=headers, data=json.dumps(Activo, indent=4))
         res = peticion.json()
         return [res]
 

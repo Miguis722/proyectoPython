@@ -6,7 +6,7 @@ import requests
 
 #Servidor de Personal
 def getAllDataPersonal():
-	peticion = requests.get("http://154.38.171.54:5502/personas")
+	peticion = requests.get("http://154.38.171.54:5503/personas")
 	data= peticion.json()
 	return data
 
@@ -21,7 +21,7 @@ def ANumeroDePersonal(id):
 
 #Servidor de Activos
 def getAllDataActivos():
-	peticion = requests.get("http://154.38.171.54:5502/activos")
+	peticion = requests.get("http://154.38.171.54:5503/activos")
 	data = peticion.json()
 	return data
 
@@ -50,7 +50,7 @@ def deletePersonal(id):
                 except Exception as error:
                     print(error)
                 break
-            peticion = requests.delete(f"http://154.38.171.54:5502/personas/{id}", data=json.dumps(data[0]).encode("UTF-8"))
+            peticion = requests.delete(f"http://154.38.171.54:5503/personas/{id}", data=json.dumps(data[0]).encode("UTF-8"))
             res = peticion.json()
             if 'Mensaje' in res:
                 print(res['Mensaje'])
