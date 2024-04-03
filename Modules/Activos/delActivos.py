@@ -8,7 +8,7 @@ import uuid
 
 #Servidor de Activos
 def getAllDataActivos():
-	peticion = requests.get("http://154.38.171.54:5503/activos")
+	peticion = requests.get("http://154.38.171.54:5501/activos")
 	data = peticion.json()
 	return data
 
@@ -36,7 +36,7 @@ def deleteActivos(ID):
             except Exception as error:
                 print(error)
     try:
-        peticion = requests.put(f"http://154.38.171.54:5503/activos/{ID}", data=json.dumps(data[0]).encode("UTF-8"))
+        peticion = requests.put(f"http://154.38.171.54:5501/activos/{ID}", data=json.dumps(data[0]).encode("UTF-8"))
         res = peticion.json()
         res['Mensaje'] = "Activo eliminado con exito."
         print(res['Mensaje'])

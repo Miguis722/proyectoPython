@@ -6,7 +6,7 @@ import requests
 
 #Servidor de Zonas
 def getAllDataZonas():
-	peticion = requests.get("http://154.38.171.54:5503/zonas")
+	peticion = requests.get("http://154.38.171.54:5501/zonas")
 	data= peticion.json()
 	return data
 
@@ -63,7 +63,7 @@ def updateZonas(id):
                             
                     # Después de que el usuario actualice los datos, realizamos la solicitud PUT al servidor
                     headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
-                    url = f"http://154.38.171.54:5503/zonas/{id}"
+                    url = f"http://154.38.171.54:5501/zonas/{id}"
                     peticion = requests.put(url, headers=headers, data=json.dumps(item))
                     data = peticion.json()
                     return [data]

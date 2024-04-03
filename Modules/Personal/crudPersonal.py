@@ -7,7 +7,7 @@ import Modules.Personal.getPersonal as GetPer
 
 #Servidor de Personal
 def getAllDataPersonal():
-	peticion = requests.get("http://154.38.171.54:5503/personas")
+	peticion = requests.get("http://154.38.171.54:5501/personas")
 	data= peticion.json()
 	return data
 
@@ -69,7 +69,7 @@ def modifyAPersonalxd(id):
 									print(error)
 
 									headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
-									peticion = requests.put(f"http://154.38.171.54:5503/personas/{id}", headers=headers, data=json.dumps(data))
+									peticion = requests.put(f"http://154.38.171.54:5501/personas/{id}", headers=headers, data=json.dumps(data))
 									res = peticion.json()
 									return [res]
 								else:

@@ -6,7 +6,7 @@ from datetime import date as fecha_hoy
 from tabulate import tabulate
 
 def obtener_todos_los_activos():
-    peticion = requests.get("http://154.38.171.54:5503/activos")
+    peticion = requests.get("http://154.38.171.54:5501/activos")
     datos = peticion.json()
     return datos
 
@@ -95,7 +95,7 @@ def asignar_activo(id_activo):
                         }
                     ]
 
-                    peticion = requests.put(f"http://154.38.171.54:5503/activos/{id_activo}", data=json.dumps(activo))
+                    peticion = requests.put(f"http://154.38.171.54:5501/activos/{id_activo}", data=json.dumps(activo))
                     if(peticion.status_code == 200):
                         return print("La asignacion ha sido realizada correctamente")
                     break  

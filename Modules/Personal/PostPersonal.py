@@ -6,7 +6,7 @@ import requests
 
 #Servidor de Personal
 def getAllDataPersonal():
-	peticion = requests.get("http://154.38.171.54:5503/personas")
+	peticion = requests.get("http://154.38.171.54:5501/personas")
 	data= peticion.json()
 	return data
 
@@ -50,7 +50,7 @@ def NewPersonalInBase():
             
 
             headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-            peticion = requests.post(f"http://154.38.171.54:5503/personas", headers=headers, data=json.dumps(Personal, indent=4))
+            peticion = requests.post(f"http://154.38.171.54:5501/personas", headers=headers, data=json.dumps(Personal, indent=4))
             res = peticion.json()
             if 'Mensaje' in res:
                 print(res['Mensaje'])

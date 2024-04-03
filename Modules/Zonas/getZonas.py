@@ -8,7 +8,7 @@ from tabulate import tabulate
 
 #Servidor de Zonas
 def getAllDataZonas():
-	peticion = requests.get("http://154.38.171.54:5503/zonas")
+	peticion = requests.get("http://154.38.171.54:5501/zonas")
 	data= peticion.json()
 	return data
 

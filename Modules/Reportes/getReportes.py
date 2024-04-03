@@ -6,7 +6,7 @@ import json
 
 #Servidor de Categorias
 def getAllDataCategorias():
-    peticion = requests.get("http://154.38.171.54:5503/categoriaActivos")
+    peticion = requests.get("http://154.38.171.54:5501/categoriaActivos")
     data = peticion.json()
     return data
 
@@ -16,7 +16,7 @@ def getAllDataCategorias():
 
 #Servidor de Reportes
 def getAllDataReportes():
-	peticion = requests.get("http://154.38.171.54:5503/activos")
+	peticion = requests.get("http://154.38.171.54:5501/activos")
 	data = peticion.json()
 	return data
 

@@ -6,7 +6,7 @@ import json
 import Modules.Activos.getActivos as GetActivos
 #Servidor de Activos
 def getAllDataActivos():
-	peticion = requests.get("http://154.38.171.54:5503/activos")
+	peticion = requests.get("http://154.38.171.54:5501/activos")
 	data= peticion.json()
 	return data
 
@@ -15,7 +15,7 @@ def getAllDataActivos():
 # El primer paso será traer todas las marcas.
 
 def MarcasExistentes():
-    peticion = requests.get("http://154.38.171.54:5503/marcas")
+    peticion = requests.get("http://154.38.171.54:5501/marcas")
     data = peticion.json()
 
     #Aqui estamos creando un diccionalio en el cual se guardaran las marcas con sus respectivos id's.
@@ -35,7 +35,7 @@ def NumeroDeMarcaExistenteXMarca(nombre_marca):
 #Ahora, haremos lo mismo, pero con las categorias disponibles, y despues haremos con los diferentes estados disponibles.
 
 def CategoriasExistentes():
-    peticion = requests.get("http://154.38.171.54:5503/categoriaActivos")
+    peticion = requests.get("http://154.38.171.54:5501/categoriaActivos")
     data = peticion.json()
 
     #Ahora creamos un diccionario en el cual se guardaran las categorias con sus respectivos id's.
@@ -55,7 +55,7 @@ def NumeroDeCategoriaExistenteXCategoria(nombre_categoria):
 
 #Ahora, lo hacemos con los distintos estados.
 def EstadosExistentes():
-    peticion = requests.get("http://154.38.171.54:5503/estados")
+    peticion = requests.get("http://154.38.171.54:5501/estados")
     data = peticion.json()
 
      #Creamos el diccionario donde se guardan los estados con sus respectivos ID's.
@@ -336,7 +336,7 @@ def updateActivos(id):
                         print(error)
         
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
-        peticion = requests.put(f"http://154.38.171.54:5503/activos/{id}", headers=headers, data=json.dumps(data))
+        peticion = requests.put(f"http://154.38.171.54:5501/activos/{id}", headers=headers, data=json.dumps(data))
         res = peticion.json()
         return [res]
     else:
