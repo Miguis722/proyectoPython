@@ -39,3 +39,6 @@
 37. Se me olvidaba decir que importe los archivos python de modulos.zonas debido a que esa es su ubicación, recordar que cada archivo tiene una funcionalidad distinta que va desde agregar, editar hasta eliminar algun dato.
 38. Desarrollamos PostZonas, donde podremos agregar una nueva zona, además de que arreglamos pequeños detalles de PostPersonal.
 39. Confirmamos el funcionamiento de PostActivos. En PostActivos decidi cambiar el codigo a que el usuario NO escriba un Numero de item debido a que pueden haber millones y millones, y de aqui a que encuentre uno libre, puede que ya este ocupado, para esto, simplemente hacemos la funcion de nuevoInfoActivos, el cual se encargara de enlistar todos los numero de item, poner el maximo (el ultimo que haya hasta el momento) y le agregara uno, para asi evitar problemas e inconvenientes.
+
+
+IMPORTANTE CAMBIAR
