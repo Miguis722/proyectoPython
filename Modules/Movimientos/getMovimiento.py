@@ -64,49 +64,7 @@ def getHistorial(id):
             return historial
 
         
-"""
-                        if(opcion==1):
-                            print(tabulate(getAllActivosCN(), headers = "keys", tablefmt="fancy_grid"))
-                        # Si la opción seleccionada por el usuario es 2, se le solicita al usuario que ingrese un número de categoría
-                        # Si la entrada del usuario es un número de categoría válido, se imprime una tabla de todos los activos activos en la categoría seleccionada.
-                        elif(opcion==2):
-                            # Este bloque de código se ejecuta en un bucle, solicitando al usuario que ingrese un número de categoría.
-                            # La entrada del usuario se verifica para garantizar que sea un número de categoría válido (1, 2 o 3)
-                            # Si la entrada del usuario es un número de categoría válido, se imprime una tabla de todos los activos activos en la categoría seleccionada.
-                            # Si la entrada del usuario no es un número de categoría válido, se muestra un mensaje de error
-                            while True:
-                                categoria =  input(Ingrese el numero de la Categoria:  
-                                                
-                                                            1) Equipo de computo.
-                                                            2) Electrodomestico. 
-                                                            3) Juego.
-                                                )
-                                if(re.match(r'^[1-3]+$', categoria)):
-                                    categoria = str(categoria)
-                                    print(tabulate(getAllActivosCate(categoria), headers = "keys", tablefmt="fancy_grid")) 
-                                    break  
-                                else:
-                                    print("Categoria no valida, ingrese un numero entre 1 y 3")
-                        elif(opcion==3):
-                            #Si la opcion es 3 pasa a ejecutar la funcion (getActivosDaño)
-                            print(tabulate(getActivosDaño(), headers = "keys", tablefmt="fancy_grid"))
-                            input("Presione enter para continuar🔜.....")
-                        elif(opcion==4):
-                            #Si la opcion es 4 pasa a ejecutar la funcion (getActiAsig)
-                            print(tabulate(getActiAsig(), headers = "keys", tablefmt="fancy_grid"))
-                            input("Presione enter para continuar🔜.....")
-                        elif(opcion==5):
-                            #Si la opcion es 5 pasa a ejecutar la funcion (getHistorial)
-                            idActi = (input("Ingrese el id del activo que desea ver el historial: "))
-                            print(tabulate(getHistorial(idActi), headers = "keys", tablefmt="fancy_grid"))
-                            input("Presione enter para continuar🔜🔜.....")
-                        #Si la funcion es 6 rompe el bucle y regresa al menu principal
-                        elif(opcion==6):
-                            break
-            except KeyboardInterrupt:
-                break    
-    
-"""
+
 def menu():
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
