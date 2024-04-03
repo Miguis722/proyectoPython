@@ -20,7 +20,7 @@ def updateZonas(id):
             print("Zona encontrada")
             print(tabulate([data], headers="keys", tablefmt="rounded_grid"))
             for item in data:
-                if item["nombreZona"] == id:
+                if item["id"] == id:
                     while True:
                         try:
                             print(""" ¿Qué dato deseas modificar? 
@@ -63,7 +63,7 @@ def updateZonas(id):
                             
                     # Después de que el usuario actualice los datos, realizamos la solicitud PUT al servidor
                     headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
-                    url = f"http://154.38.171.54:5503/zonas/{item['nombreZona']}"
+                    url = f"http://154.38.171.54:5503/zonas/{id}"
                     peticion = requests.put(url, headers=headers, data=json.dumps(item))
                     data = peticion.json()
                     return [data]
