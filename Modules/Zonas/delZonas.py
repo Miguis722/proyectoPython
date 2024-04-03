@@ -71,4 +71,3 @@ def menu():
 				print(tabulate(deleteZonas(Id), headers="keys", tablefmt="rounded_grid"))
 				input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         	# ELIMINAR
-menu()

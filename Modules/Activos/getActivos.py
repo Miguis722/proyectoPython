@@ -17,8 +17,8 @@ def submenu():
      print("""
            ¿Que deseas visualizar?
 
-           1. Todo el personal.
-           2. Buscar un personal en especifico.""")
+           1. Todos los activos.
+           2. Buscar un activo en especifico.""")
      opcion = input("\nSeleccione una de las opciones: ")
      if re.match(r'^[1-5]$', opcion) is not None:
           opcion = int(opcion)
@@ -47,8 +47,10 @@ def SearchActivo(id):
                         "Proveedor": val.get('Proveedor'),
                         "Responsable": val.get('EmpresaResponsable'),
                         "Id de la marca": val.get('idMarca'),
-                        "Id del tipo": val.get('idTipo')
-                })
+                        "Id del tipo": val.get('idTipo'),
+                        "Asignado": val.get('asignaciones,[]')
+                        })
+                
         if not Activos:
             raise Exception("El número ID o El número de Item suministrado no se encuentra en la base de datos existente.")
         return Activos

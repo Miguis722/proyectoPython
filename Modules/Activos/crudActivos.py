@@ -75,7 +75,7 @@ def updateActivos(NroItem):
     data = getAllDataActivos()  
     if len(data):
         print("Activo Encontrado")
-        print(tabulate([data], headers=headers, tablefmt="rounded_grid"))
+        print(tabulate([data], headers="keys", tablefmt="rounded_grid"))
         for item in data:
              if item["NroItem"] == NroItem:
                 continuarActualizar = True

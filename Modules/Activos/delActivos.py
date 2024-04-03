@@ -1,57 +1,51 @@
 from tabulate import tabulate
-
 import os
 import re
 import json
 import requests
+import datetime
+import uuid
 
-# Servidor de Personal
-def get_all_data_personal():
-    # Realiza una solicitud GET al servidor de personal y devuelve los datos obtenidos en formato JSON
-    response = requests.get("http://154.38.171.54:5502/personas")
-    return response.json()
+#Servidor de Activos
+def getAllDataActivos():
+	peticion = requests.get("http://154.38.171.54:5502/activos")
+	data = peticion.json()
+	return data
 
-def find_personal_by_id(id):
-    # Busca un registro de personal por su identificador en los datos obtenidos del servidor
-    for person in get_all_data_personal():
-        if person.get('nroId (CC, Nit)') == id:
-            return person
-    print('\nEl personal no existe')
-    return None
-
-# Servidor de Activos
-def get_all_data_activos():
-    # Realiza una solicitud GET al servidor de activos y devuelve los datos obtenidos en formato JSON
-    response = requests.get("http://154.38.171.54:5502/activos")
-    return response.json()
-
-def find_activo_by_item_number(NroItem):
-    # Busca un activo por su número de ítem en los datos obtenidos del servidor
-    for item in get_all_data_activos():
-        if item.get('NroItem') == NroItem:
-            return item
-    print('\nEl activo no existe')
-    return None
-
-def delete_personal(id):
-    # Obtiene los datos del personal con el ID proporcionado
-    personal_data = find_personal_by_id(id)
-    
-    if personal_data:
-        # Verifica si el personal tiene asignaciones
-        if len(personal_data['asignaciones']) == 0:
-            # Si no tiene asignaciones, marca el estado del personal como "0"
-            personal_data['idEstado'] = "0"
-            # Realiza una solicitud PUT para actualizar los datos del personal
-            response = requests.delete(f"http://154.38.171.54:5502/personas/{id}", data=json.dumps(personal_data).encode("UTF-8"))
-            if response.status_code == 200:
-                print("El personal ha sido eliminado exitosamente.")
-            else:
-                print("Hubo un problema al intentar eliminar el personal.")
+def ActivoPorid(id):
+    for acito in getAllDataActivos():
+        if acito.get('id') == id:
+            return acito
         else:
-            print("El personal que está intentando eliminar está asignado, por lo tanto no se puede eliminar.")
-    else:
-        print("No se encontró al personal con el ID especificado.")
+            print('\nEl activo no existe')
+            return None
+
+
+def deleteActivos(ID):
+    try:
+    # Obtiene los datos del personal con el ID proporcionado
+        data = ActivoPorid(ID)
+        # Verifica si el activo tiene asignaciones
+        if data["asignaciones"] == []:
+            data["idEstado"] = "2"
+            historial = {}
+            if not historial.get("NroId"):
+                historial["NroId"] =str(uuid.uuid4().hex[:4])
+            if not historial.get("Fecha"):
+                fechaactual = datetime.datetime.now().strftime('%Y/%m/%d')
+                historial["Fecha"] = fechaactual
+            if not historial.get("tipoMov"):
+                historial["tipoMov"] = "2" 
+            data.setdefault("historialActivos", []).append(historial)
+            url = (f"http://154.38.171.54:5502/activos{ID}")
+            peticion = requests.put(url, data=json.dumps(data, indent=4).encode("UTF-8"))
+            res = peticion.json()
+            res["Mensaje"] = "El Activo que deseaba, ha sido modificado con exito."
+            raise Exception("Ha ocurrido un error modificando el estado.")
+    except Exception as error:
+        print(error)
+                
+
 
     # Espera la entrada del usuario para volver
     input("Presione Enter para volver: ")
@@ -87,7 +81,7 @@ def menu():
             
         # Si el usuario selecciona 1, modificara/editara los datos.
         elif opcion == 1:
-            ID = (input("Ingrese el ID que desea eliminar: "))
-            print(tabulate(delete_personal(ID)))
+            ID = input("Ingrese el ID que desea eliminar: ")
+            print(tabulate(deleteActivos(ID)), headers="keys", tablefmt="rounded_grid")
             input("Presione 0 (Cero) para volver: ")  # Ponemos un input para que cuando corramos lo que necesitamos no se borre lo que queremos mostrar.
         #Eliminar

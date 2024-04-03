@@ -33,224 +33,158 @@ def nuevoInfoActivos():
 
 #Deseamos agregar la información de un nuevo Activo, asignandole automaticamente un nuevo número de NroItem
 def AddInfoActivos():
-    Activo = {
-          "NroItem": nuevoInfoActivos,
-          "CodTransaccion": 327,
-    }
-    try:        
+    Activo = {}
+    try:
+        while True:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            if not Activo.get('NroItem'):
+                while True:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    NumeroItem = input('Ingrese el número de item del activo:')
+                    if NumeroItem.isdigit():
+                        NumeroItem = int(NumeroItem)
+                        data = ActivosNroItem(NumeroItem)
+                        if data:
+                            raise Exception('El número de item del activo introducido ya existe, porfavor verifique.')
+                        else:
+                            Activo['NroItem'] = NumeroItem
+                    else:
+                        raise Exception('El número de item del activo no cumple con el patrón establecido, porfavor verifique.')
+                    break
+            
+            if not Activo.get('CodTransaccion'):
+                CodTransaccion = input('Ingrese el código de transacción del activo: ')
+                if CodTransaccion.isdigit():
+                    CodTransaccion = int(CodTransaccion)
+                    Activo['CodTransaccion'] = CodTransaccion
+                else:
+                    raise Exception('El código de transacción del activo solo puede tener dígitos numéricos.')
 
-        if not Activo.get("Nroserial"):
-            try:
+            if not Activo.get("Nroserial"):
                 print(""" 
-                        ¿El activo posee un número de serial?
-                      
-                                1. Si
-                                2. No
-                      """)
-                opcion = input("\nSeleccione una opción: ")                                
-                if(re.match(r'^[1-2]$',opcion) is not None):                                         
-                    if (opcion == 1):
-                            Nroserial = input("Ingrese el Serial del activo: ")
-                    #Permite ingresar letras mayúsculas y minúsculas. Además de que puede ingresar números del 0 al 9.
-                            if(re.match(r'^[A-Za-z0-9]+$', Nroserial) is not None):
-                                Nroserial = str(Nroserial)
-                                Activo["Nroserial"] = Nroserial
-                    
-                    # Acepta cualquier combinación de letras y números en cualquier orden y en cualquier cantidad.
-                    # Es decir que si por ejemplo ponemos un 123HolaMundo, lo aceptara, al igual que un Hola123Mundo.
-                    # Ya que no importa el Orden que tenga.
-                            else:
-                                raise Exception ("El Serial ingresado, no cumple con los parametros establecidos, porfavor verifique.")
-                    if opcion == 2:
-                            Activo["Nroserial"] = 'Sin Serial'
-            except Exception as error:
-                print(error)
-                
+                    ¿El activo posee un número de serial?
+                        1. Si
+                        2. No
+                """)
+                opcion = input("\nSeleccione una opción: ")
+                if re.match(r'^[1-2]$', opcion):
+                    if opcion == '1':
+                        Nroserial = input("Ingrese el Serial del activo: ")
+                        if re.match(r'^[A-Za-z0-9]+$', Nroserial):
+                            Activo["Nroserial"] = Nroserial
+                        else:
+                            raise Exception ("El Serial ingresado no cumple con los parámetros establecidos, por favor verifique.")
+                    else:
+                        Activo["Nroserial"] = 'Sin Serial'
 
-        if not Activo.get("CodCampus"):
-            try:    
+            if not Activo.get("CodCampus"):
                 CodCampus = input("Ingrese el Codigo en Campus: ")
-                #Ponemos el formato preestablecido el cual era/es: CPU123
-                if(re.match(r'[A-Za-z]{3}\d{3}', CodCampus) is not None):
+                if re.match(r'[A-Za-z]{3}\d{3}', CodCampus):
                     Activo["CodCampus"] = CodCampus
                 else:
-                    raise Exception ("El Codigo en Campus ingresado, no cumple con los parametros establecidos, por favor verifuqye.")
-            except Exception as error:
-                print(error)
-                
+                    raise Exception ("El Codigo en Campus ingresado no cumple con los parametros establecidos, por favor verifique.")
 
-        if not Activo.get("NroFormulario"):
-            try: 
-                NroFormulario = input("Ingrese el Numero de formulario del activo ")
-                #Ponemos que tienen que ponerse solo números de 0 a 9 (numeros enteros)
-                if(re.match(r'^[0-9]+$', NroFormulario) is not None):
-                    #Estamos pidiendo  al usuario una cantidad de numeros exactos, el cual es de 9, ya que el patrón que se usa
-                    #Es de maximo 9 digitos, además estamos poniendo de condición que los números que ingrese deben estar dentro de los parametros 0-9.
-                    NroFormulario =int(NroFormulario)
-                    Activo["NroFormulario"] = NroFormulario
+            if not Activo.get("NroFormulario"):
+                NroFormulario = input("Ingrese el Numero de formulario del activo: ")
+                if re.match(r'^[0-9]+$', NroFormulario):
+                    Activo["NroFormulario"] = int(NroFormulario)
                 else:
-                    raise Exception ("El número de formulario del activo ingresado, no cumple con los parametros establecidos, por favor verifuique.")
-            except Exception as error:
-                print(error)
-                
+                    raise Exception ("El número de formulario del activo ingresado no cumple con los parámetros establecidos, por favor verifique.")
 
-        if not Activo.get("Nombre"):
-            try:                
-                Nombre = input("Ingrese el Nombre del Activo, utilice como ejemplo (Ejemplo-12345678-ABC-1234): ")
-                #Ponemos que tienen que ponerse solo números de 0 a 9 (numeros enteros)
-                if(re.match(r'^[a-zA-Z]+-[^\s]{8}-[^\s]{3}-[^\s]{4}\s*$', Nombre) is not None):
-                    #^[^\d\s] Hace que los  nombres puedan tener hasta 8 digitos pero que no se agregue algún número
-                    #Porque puede que escriban CPU1234, entonces para evitar esto ponemos un condicional de que solo se puedan 
-                    #Poner letras.
-                    #Cualquier carácter que no sea un guion o un espacio en blanco, al menos una vez.
-                    #Esto permitirá que haya cualquier cantidad de caracteres antes del primer guion
+            if not Activo.get("Nombre"):
+                Nombre = input("Ingrese el Nombre del Activo, tome de ejemplo (Ejemplo-12345678-ABC-1234): ")
+                if re.match(r'^[a-zA-Z]+-[^\s]{8}-[^\s]{3}-[^\s]{4}\s*$', Nombre):
                     Activo["Nombre"] = Nombre
                 else:
-                    raise Exception ("El Nombre del activo ingresado, no cumple con los parametros establecidos, porfavor verifique.")
-            except Exception as error:
-                print(error)
-                
-        if not Activo.get("Proveedor"):
-            try:                
+                    raise Exception ("El Nombre del activo ingresado no cumple con los parametros establecidos, por favor verifique.")
+
+            if not Activo.get("Proveedor"):
                 Proveedor = input("Ingrese el nombre del Proveedor del Activo: ")
-                #Agregamos caracteres especiales como el uso de las tildes y las Ñ.     r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$"
-                if(re.match(r'^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$', Proveedor) is not None):
+                if re.match(r'^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$', Proveedor):
                     Activo["Proveedor"] = Proveedor
                 else:
-                    raise Exception ("El Proovedor del activo ingresado, no cumple con los parametros establecidos, porfavor verifique.")
-            except Exception as error:
-                print(error)
-            
+                    raise Exception ("El Proveedor del activo ingresado no cumple con los parametros establecidos, por favor verifique.")
 
-        if not Activo.get("EmpresaResponsable"):
-            try:
+            if not Activo.get("EmpresaResponsable"):
                 EmpresaResponsable = input("Ingrese la Empresa Responsable del Activo: ")
-                #Agregamos caracteres especiales como el uso de las tildes y las Ñ
-                if(re.match(r'^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$', EmpresaResponsable) is not None):
+                if re.match(r'^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$', EmpresaResponsable):
                     Activo["EmpresaResponsable"] = EmpresaResponsable
                 else:
-                    raise Exception ("La empresa Responsable del activo ingresado, no cumple con los parametros establecidos, porfavor verifique.")
-            except  Exception as error:
-                print(error)
+                    raise Exception ("La empresa Responsable del activo ingresado no cumple con los parametros establecidos, por favor verifique.")
 
+            print("""Las marcas disponibles son:
+                1. lg
+                2. compumax
+                3. logitech
+                4. benq
+                5. asus
+                6. lenovo
+                7. hp
+            """)
+            idMarca = input("Ingrese el número id de la Marca: ")
+            if re.match(r'^[1-7]$', idMarca):
+                Activo["idMarca"] = idMarca
+            else:
+                raise Exception ("El número id de la Marca ingresado no cumple con los parametros establecidos, por favor verifique.")
 
+            print("""
+                Las categorias disponibles son:                      
+                1. equipo de computo
+                2. electrodomestico
+                3. juego
+            """)
+            idCategoria = input("Ingrese el ID de la Categoria: ")
+            if re.match(r'^[1-3]$', idCategoria):
+                Activo["idCategoria"] = idCategoria
+            else:
+                raise Exception ("El ID de la Categoria ingresado no cumple con los parametros establecidos, porfavor verifiquelo.")
 
-        if not Activo.get("idMarca"):
-            try:                
-                print("""Las marcas disponibles son:
-                      
-                                    1. lg
-                                    2. compumax
-                                    3. logitech
-                                    4. benq
-                                    5. asus
-                                    6. lenovo
-                                    7. hp
-                """)
-                idMarca = input("Ingrese el número id de la Marca: ")
-                #Ponemos que tienen que ponerse solo números de 1 a 7 (numeros enteros)
-                if(re.match(r'^[1-7]$', idMarca) is not None):
-                    
-                    Activo["idMarca"] = idMarca
-                else:
-                    raise Exception ("El número id de la Marca ingresado, no cumple con los parametros establecidos, por favor verifique.")
-            except Exception as error:
-                print(error)
-                
+            print("""Los tipos de activo disponibles son:
+                1. monitor
+                2. cpu
+                3. teclado
+                4. mouse
+                5. aire acondicionado
+                6. portatil
+                7. televisor
+                8. Arcade
+            """)
+            idTipo = input("Ingrese ID del tipo de Activo: ")
+            if re.match(r'^[1-8]$', idTipo):
+                Activo["idTipo"] = idTipo
+            else:
+                raise Exception ("El ID del Tipo de Activo ingresado no cumple con los parametros establecidos, porfavor verifique.")
 
-        if not Activo.get("idCategoria"):
-            try:
-                print("""
-                      
-                      Las categorias disponibles son:                      
-                                    
-                            1. equipo de computo
-                            2. electrodomestico
-                            3. juego                                            
-                      """)
-                idCategoria = input("Ingrese el ID de la Categoria: ") 
-                    #Ponemos que tienen que ponerse solo números de 1 a 3 (numeros enteros)
-                if(re.match(r'^[1-3]$', idCategoria) is not None):
-                   
-                    Activo["idCategoria"] = idCategoria
-                else:
-                    raise Exception ("El ID de la Categoria ingresado, no cumple con los parametros establecidos, porfavor verigique.")
-            except Exception as error:
-                 print(error)
+            ValorUnitario = input("Ingrese el Valor del Activo (c/u): ")
+            if re.match(r"^[0-9]+$", ValorUnitario):
+                Activo["ValorUnitario"] = ValorUnitario
+            else:
+                raise Exception ("El valor del activo ingresado no cumple con los parametros establecidos, porfavor verifique.")
 
-        if not Activo.get("idTipo"):
-            try:
-                print(""" 
-                        Los tipos de activo disponible son:
-                      
-                                1. monitor
-                                2. cpu
-                                3. teclado
-                                4. mouse
-                                5. aire acondicionado
-                                6. portatil
-                                7. televisor
-                                8. Arcade
-                    """)
-                
-                idTipo = input("Ingrese ID del tipo de Activo: ")
-                    
-                if(re.match(r"^[1-8]$", idTipo) is not None):
-                        
-                        Activo["idTipo"] = idTipo
-                else:
-                        raise Exception ("El ID del Tipo de Activo ingresado, no cumple con los parametros establecidos, porfavor verifique.")
-            except  Exception as error:
-                 print (error)
+            print("""
+                Los estados disponibles son:
+                0. No asignado
+                1. asignado
+                2. dado de baja por daño
+                3. en reparación y/o garantia
+            """)
+            idEstado = input("Ingrese el ID del estado del activo: ")
+            if re.match(r"^[0-9]+$", idEstado):
+                Activo["idEstado"] = int(idEstado)
+            else:
+                raise Exception ("El ID del estado del activo ingresado no cumple con los parametros establecidos, porfavor verifique.")
 
-        if not Activo.get("ValorUnitario"):
-            try:          
-                ValorUnitario = input("Ingrese el Valor del Activo (c/u): ")
-                #Ponemos que tienen que ponerse solo números de 0 a 9 (numeros enteros)
-                if(re.match(r"^[0-9]+$", ValorUnitario) is not None):
-                    Activo["ValorUnitario"] = ValorUnitario
-                else:
-                    raise Exception ("El valor del activo ingresado, no cumple con los parametros establecidos, porfavor verifique.")
-            except Exception as error:
-                 print(error)
-                
-
-        if not Activo.get("idEstado"):
-            try:
-                print("""
-
-                                Los estados disponibles son:
-
-                                    0. No asignado
-                                    1. asignado
-                                    2. dado de baja por daño
-                                    3. en reparación y/o garantia
-                                             """)
-                idEstado = input("Ingrese el ID del estado del activo: ")
-                #Ponemos que tienen que ponerse solo números de 0 a 9 (numeros enteros)
-                if(re.match(r"^[0-9]+$", idEstado) is not None):
-                
-                    idEstado = int(idEstado)
-                    Activo["idEstado"] = idEstado
-                else:
-                    raise Exception ("El ID del estado del activo ingresado,  no cumple con los parametros establecidos, porfavor verifique.")
-            except Exception as error:
-                print(error)
-
-        raise Exception ("Se ha creado el Activo deseado.")
+            raise Exception("Se ha creado el Activo deseado.")
     except Exception as error:
         print(error)
 
+        headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+        peticion = requests.post("http://154.38.171.54:5502/activos", headers=headers, data=json.dumps(Activo, indent=4))
+        res = peticion.json()
+        return [res]
 
-    try:
-            headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-            peticion = requests.post("http://154.38.171.54:5502/activos", headers=headers, data=json.dumps(Activo, indent=4))
-            res = peticion.json()
-            return [res]
-    except Exception as error:
-            print(error)
-            print("Ha ocurrido un error inesperado al enviar los datos, inténtelo nuevamente.")
-            
+
+                
 
 
 
