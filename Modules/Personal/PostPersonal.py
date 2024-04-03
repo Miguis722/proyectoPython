@@ -28,43 +28,38 @@ def NewPersonalInBase():
                 CC = input("Ingrese el CC o NIT del personal: ")
                 if re.match(r'^[0-9]+$', CC):
                     Data = getAllDataPersonal()
-                    if Data:
-                        print(tabulate(Data, headers="keys", tablefmt="rounded_grid"))
-                        raise Exception("Este Usuario de Personal ya existe.")
-                    else:
-                        Personal["nroId (CC, Nit)"] = CC
-                        print("El Usuario que desea agregar cumple con los parametros.")
+                    Personal["nroId (CC, Nit)"] = CC
+                    print("El Usuario que desea agregar cumple con los parametros.")
                 else:
                     raise Exception("El Usuario no cumple con el patrón establecido, intentelo nuevamente.")
                 
             if not Personal.get("Nombre"):
                 Nombre = input("Ingrese el Nombre del personal:")
                 if re.match(r'^[A-Za-z\s]+$', Nombre):
-                    Data = getAllDataPersonal()
-                    if Data:
-                        print(tabulate(Data, headers="keys", tablefmt="rounded_grid"))
-                        raise Exception("Ya hay un usuario registrado con este nombre, intente con otro.")
-                    else:
-                        Personal["Nombre"] = Nombre
-                        print("El nombre cumple con el patrón establecido.")
+                    Data = getAllDataPersonal()        
+                    Personal["Nombre"] = Nombre
+                    print("El nombre cumple con el patrón establecido.")
                 else:
                     raise Exception("El Nombre no cumple con el patrón establecido, intentelo nuevamente.")
                 
             if not Personal.get("Email"):
                 Email = input("Ingrese el Correo Electronico (Email): ")
-                if re.match(r'^[\w\.-]+@[\w\.-]+$', Email):
-                    Data = getAllDataPersonal()
-                    if Data:
-                        print(tabulate(Data, headers="keys", tablefmt="rounded_grid"))
-                        raise Exception("Ya existe este correo electronico (Email) registrado, intentelo nuevamente.")
-                    else:
-                        Personal["Email"] = Email
-                        print("El correo electronico (Email) cumple con el patrón establecido.") 
-                raise Exception("No se ha podido agregar el nuevo personal, intentelo nuevamente.")
+                Personal["Email"] = Email
+                print("El correo electronico (Email) cumple con el patrón establecido.")                 
+            
+            
+
+            headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+            peticion = requests.post(f"http://154.38.171.54:5503/personas", headers=headers, data=json.dumps(Personal, indent=4))
+            res = peticion.json()
+            if 'Mensaje' in res:
+                print(res['Mensaje'])
+                input("Presione 0 (Cero) para volver: ")
+                return [res]
+            raise Exception("No se ha podido agregar el nuevo personal, intentelo nuevamente.")
         except Exception as error:
             print(error)
-
-
+            break
 
 def menu():
 	while True:
