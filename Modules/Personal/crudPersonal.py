@@ -67,6 +67,15 @@ def modifyAPersonalxd(id):
 									else: raise Exception ("El telefono no cumple con el patrón establecido.")
 								except Exception as error:
 									print(error)
+
+									headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
+									peticion = requests.put(f"http://154.38.171.54:5503/personas/{id}", headers=headers, data=json.dumps(data))
+									res = peticion.json()
+									return [res]
+								else:
+									return[{
+									"Mensaje": "Activo no encontrado"
+        								}]
 					raise Exception("No se pudo realizar el cambio, intentelo nuevamente.")
 				except Exception as error:
 					print(error)
