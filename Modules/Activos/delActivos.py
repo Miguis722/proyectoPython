@@ -22,29 +22,29 @@ def ActivoPorid(id):
 
 
 def deleteActivos(ID):
+    data = ActivoPorid(ID)
+    if len(data):
+        while True:
+            try:    
+                # Verifica si el activo tiene asignaciones
+                if len(data[0]['asignaciones']) == 0:
+                    data[0]['idEstado'] = "0"
+                    break   
+                else:
+                    raise Exception('El activo está asignado a una persona o zona y no se puede eliminar.')                
+                    
+            except Exception as error:
+                print(error)
     try:
-    # Obtiene los datos del personal con el ID proporcionado
-        data = ActivoPorid(ID)
-        # Verifica si el activo tiene asignaciones
-        if data["asignaciones"] == []:
-            data["idEstado"] = "2"
-            historial = {}
-            if not historial.get("NroId"):
-                historial["NroId"] =str(uuid.uuid4().hex[:4])
-            if not historial.get("Fecha"):
-                fechaactual = datetime.datetime.now().strftime('%Y/%m/%d')
-                historial["Fecha"] = fechaactual
-            if not historial.get("tipoMov"):
-                historial["tipoMov"] = "2" 
-            data.setdefault("historialActivos", []).append(historial)
-            url = (f"http://154.38.171.54:5502/activos{ID}")
-            peticion = requests.put(url, data=json.dumps(data, indent=4).encode("UTF-8"))
-            res = peticion.json()
-            res["Mensaje"] = "El Activo que deseaba, ha sido modificado con exito."
-            raise Exception("Ha ocurrido un error modificando el estado.")
+        peticion = requests.put(f"http://154.38.171.54:5502/activos/{ID}", data=json.dumps(data[0]).encode("UTF-8"))
+        res = peticion.json()
+        res['Mensaje'] = "Activo eliminado con exito."
+        print(res['Mensaje'])
+        return [res]
+        raise Exception("Ha ocurrido un error modificando el estado.")
     except Exception as error:
         print(error)
-                
+                                
 
 
     # Espera la entrada del usuario para volver
